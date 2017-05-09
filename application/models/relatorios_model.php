@@ -107,20 +107,20 @@ class Relatorios_model extends CI_Model {
     public function produtosCustom($precoInicial = null,$precoFinal = null,$estoqueInicial = null,$estoqueFinal = null){
         $wherePreco = "";
         $whereEstoque = "";
-        if($precoInicial != null && $precoInicial != null){
-            $wherePreco = "AND precoVenda BETWEEN ".$this->db->escape($precoInicial)." AND ".$this->db->escape($precoFinal);
+        if($precoInicial != null && $precoFinal != null){
+            $wherePreco = " AND precoVenda BETWEEN ".$this->db->escape($precoInicial)." AND ".$this->db->escape($precoFinal);
         } else if($precoInicial != null){
-          $wherePreco = "AND precoVenda >= ".$this->db->escape($precoInicial);
+          $wherePreco = " AND precoVenda >= ".$this->db->escape($precoInicial);
         } else if($precoFinal != null){
-          $wherePreco = "AND precoVenda <= ".$this->db->escape($precoFinal);
+          $wherePreco = " AND precoVenda <= ".$this->db->escape($precoFinal);
         }
 
         if($estoqueInicial != null && $estoqueFinal != null){
-            $whereEstoque = "AND estoque BETWEEN ".$this->db->escape($estoqueInicial)." AND ".$this->db->escape($estoqueFinal);
+            $whereEstoque = " AND estoque BETWEEN ".$this->db->escape($estoqueInicial)." AND ".$this->db->escape($estoqueFinal);
         } else if($estoqueInicial != null){
-          $whereEstoque = "AND estoque >= ".$this->db->escape($estoqueInicial);
+          $whereEstoque = " AND estoque >= ".$this->db->escape($estoqueInicial);
         } else if($estoqueFinal != null){
-          $whereEstoque = "AND estoque <= ".$this->db->escape($estoqueFinal);
+          $whereEstoque = " AND estoque <= ".$this->db->escape($estoqueFinal);
         }
 
         $query = "SELECT * FROM produtos WHERE estoque >= 0 $wherePreco $whereEstoque";
@@ -129,15 +129,15 @@ class Relatorios_model extends CI_Model {
 
     public function servicosCustom($precoInicial = null,$precoFinal = null){
       $wherePreco = "";
-      if($precoInicial != null && $precoInicial != null){
-          $wherePreco = "AND preco BETWEEN ".$this->db->escape($precoInicial)." AND ".$this->db->escape($precoFinal);
+      if($precoInicial != null && $precoFinal != null){
+          $wherePreco = " AND preco BETWEEN ".$this->db->escape($precoInicial)." AND ".$this->db->escape($precoFinal);
       } else if($precoInicial != null){
-        $wherePreco = "AND preco >= ".$this->db->escape($precoInicial);
+        $wherePreco = " AND preco >= ".$this->db->escape($precoInicial);
       } else if($precoFinal != null){
-        $wherePreco = "AND preco <= ".$this->db->escape($precoFinal);
+        $wherePreco = " AND preco <= ".$this->db->escape($precoFinal);
       }
         $query = "SELECT * FROM servicos WHERE preco >= 0 $wherePreco";
-        return $this->db->query($query, array($precoInicial,$precoFinal))->result();
+        return $this->db->query($query)->result();
     }
 
 
@@ -146,8 +146,12 @@ class Relatorios_model extends CI_Model {
         $whereCliente = "";
         $whereResponsavel = "";
         $whereStatus = "";
-        if($dataInicial != null){
+        if($dataInicial != null  && $dataFinal != null){
             $whereData = "AND dataInicial BETWEEN ".$this->db->escape($dataInicial)." AND ".$this->db->escape($dataFinal);
+        } else if($dataInicial != null){
+            $whereData = "AND dataInicial >= ".$this->db->escape($dataInicial);
+        } else if($dataFinal != null){
+            $whereData = "AND dataInicial <= ".$this->db->escape($dataFinal);
         }
         if($cliente != null){
             $whereCliente = "AND clientes_id = ".$this->db->escape($cliente);
