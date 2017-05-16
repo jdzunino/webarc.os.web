@@ -120,7 +120,7 @@
                     $("#rua").val(json.logradouro);
                     $("#bairro").val(json.bairro);
 
-                    //Falta buscar cidade_id
+                    //Falta buscar cidade_id, verificar busca pelo ibge 
                     $("#cidade").val(json.localidade);
                     $("#numero").focus();
                 },
