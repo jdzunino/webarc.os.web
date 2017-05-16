@@ -2,17 +2,10 @@
 
 class Controle extends CI_Controller {
 
-
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-    
     public function __construct() {
         parent::__construct();
         $this->load->model('controle_model','',TRUE);
-        
+
     }
 
     public function index() {
@@ -27,7 +20,7 @@ class Controle extends CI_Controller {
         $this->data['menuPainel'] = 'Painel';
         $this->data['view'] = 'controle/painel';
         $this->load->view('tema/topo',  $this->data);
-      
+
     }
 
     public function minhaConta() {
@@ -38,7 +31,7 @@ class Controle extends CI_Controller {
         $this->data['usuario'] = $this->controle_model->getById($this->session->userdata('id'));
         $this->data['view'] = 'controle/minhaConta';
         $this->load->view('tema/topo',  $this->data);
-     
+
     }
 
     public function alterarSenha() {
@@ -47,7 +40,7 @@ class Controle extends CI_Controller {
         }
 
         $this->load->library('encrypt');
-        
+
         $oldSenha = $this->input->post('oldSenha');
         $senha = $this->input->post('novaSenha');
         $result = $this->controle_model->alterarSenha($senha,$oldSenha,$this->session->userdata('id'));
@@ -58,7 +51,7 @@ class Controle extends CI_Controller {
         else{
             $this->session->set_flashdata('error','Ocorreu um erro ao tentar alterar a senha!');
             redirect(base_url() . 'index.php/controle/minhaConta');
-            
+
         }
     }
 
@@ -66,7 +59,7 @@ class Controle extends CI_Controller {
         if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
             redirect('controle/login');
         }
-        
+
         $termo = $this->input->get('termo');
 
         $data['results'] = $this->controle_model->pesquisar($termo);
@@ -76,13 +69,13 @@ class Controle extends CI_Controller {
         $this->data['clientes'] = $data['results']['clientes'];
         $this->data['view'] = 'controle/pesquisa';
         $this->load->view('tema/topo',  $this->data);
-      
+
     }
 
     public function login(){
-        
+
         $this->load->view('controle/login');
-        
+
     }
     public function sair(){
         $this->session->sess_destroy();
@@ -97,7 +90,7 @@ class Controle extends CI_Controller {
         $this->form_validation->set_rules('senha','Senha','required|xss_clean|trim');
         $ajax = $this->input->get('ajax');
         if ($this->form_validation->run() == false) {
-            
+
             if($ajax == true){
                 $json = array('result' => false);
                 echo json_encode($json);
@@ -106,13 +99,13 @@ class Controle extends CI_Controller {
                 $this->session->set_flashdata('error','Os dados de acesso estão incorretos.');
                 redirect($this->login);
             }
-        } 
+        }
         else {
 
             $email = $this->input->post('email');
             $senha = $this->input->post('senha');
 
-            $this->load->library('encrypt');   
+            $this->load->library('encrypt');
             $senha = $this->encrypt->sha1($senha);
 
             $this->db->where('email',$email);
@@ -132,11 +125,11 @@ class Controle extends CI_Controller {
                     redirect(base_url().'controle');
                 }
 
-                
+
             }
             else{
-                
-                
+
+
                 if($ajax == true){
                     $json = array('result' => false);
                     echo json_encode($json);
@@ -146,9 +139,9 @@ class Controle extends CI_Controller {
                     redirect($this->login);
                 }
             }
-            
+
         }
-        
+
     }
 
 
@@ -163,8 +156,8 @@ class Controle extends CI_Controller {
            redirect(base_url());
         }
 
-        
-        
+
+
         $this->load->dbutil();
         $prefs = array(
                 'format'      => 'zip',
@@ -181,7 +174,7 @@ class Controle extends CI_Controller {
     }
 
 
-    public function emitente(){   
+    public function emitente(){
 
         if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
             redirect('controle/login');
@@ -264,14 +257,14 @@ class Controle extends CI_Controller {
         $this->form_validation->set_rules('email','E-mail','required|xss_clean|trim');
 
 
-        
+
 
         if ($this->form_validation->run() == false) {
-            
+
             $this->session->set_flashdata('error','Campos obrigatórios não foram preenchidos.');
             redirect(base_url().'index.php/controle/emitente');
-            
-        } 
+
+        }
         else {
 
             $nome = $this->input->post('nome');
@@ -298,7 +291,7 @@ class Controle extends CI_Controller {
                 $this->session->set_flashdata('error','Ocorreu um erro ao tentar inserir as informações.');
                 redirect(base_url().'index.php/controle/emitente');
             }
-            
+
         }
     }
 
@@ -327,14 +320,14 @@ class Controle extends CI_Controller {
         $this->form_validation->set_rules('email','E-mail','required|xss_clean|trim');
 
 
-        
+
 
         if ($this->form_validation->run() == false) {
-            
+
             $this->session->set_flashdata('error','Campos obrigatórios não foram preenchidos.');
             redirect(base_url().'index.php/controle/emitente');
-            
-        } 
+
+        }
         else {
 
             $nome = $this->input->post('nome');
@@ -360,13 +353,13 @@ class Controle extends CI_Controller {
                 $this->session->set_flashdata('error','Ocorreu um erro ao tentar alterar as informações.');
                 redirect(base_url().'index.php/controle/emitente');
             }
-            
+
         }
     }
 
 
     public function editarLogo(){
-        
+
         if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
             redirect('index.php/controle/login');
         }
@@ -379,7 +372,7 @@ class Controle extends CI_Controller {
         $id = $this->input->post('id');
         if($id == null || !is_numeric($id)){
            $this->session->set_flashdata('error','Ocorreu um erro ao tentar alterar a logomarca.');
-           redirect(base_url().'index.php/controle/emitente'); 
+           redirect(base_url().'index.php/controle/emitente');
         }
         $this->load->helper('file');
         delete_files(FCPATH .'assets/uploads/');
@@ -400,5 +393,5 @@ class Controle extends CI_Controller {
 
     }
 
-    
+
 }

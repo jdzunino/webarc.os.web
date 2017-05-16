@@ -2,19 +2,13 @@
 
 class Vendas_model extends CI_Model {
 
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-
 	function __construct() {
         parent::__construct();
     }
 
-    
+
     function get($table,$fields,$where='',$perpage=0,$start=0,$one=false,$array='array'){
-        
+
         $this->db->select($fields.', clientes.nomeCliente, clientes.idClientes');
         $this->db->from($table);
         $this->db->limit($perpage,$start);
@@ -23,9 +17,9 @@ class Vendas_model extends CI_Model {
         if($where){
             $this->db->where($where);
         }
-        
+
         $query = $this->db->get();
-        
+
         $result =  !$one  ? $query->result() : $query->row();
         return $result;
     }
@@ -48,9 +42,9 @@ class Vendas_model extends CI_Model {
         return $this->db->get()->result();
     }
 
-    
+
     function add($table,$data,$returnId = false){
-        $this->db->insert($table, $data);         
+        $this->db->insert($table, $data);
         if ($this->db->affected_rows() == '1')
 		{
                         if($returnId == true){
@@ -58,10 +52,10 @@ class Vendas_model extends CI_Model {
                         }
 			return TRUE;
 		}
-		
-		return FALSE;       
+
+		return FALSE;
     }
-    
+
     function edit($table,$data,$fieldID,$ID){
         $this->db->where($fieldID,$ID);
         $this->db->update($table, $data);
@@ -70,10 +64,10 @@ class Vendas_model extends CI_Model {
 		{
 			return TRUE;
 		}
-		
-		return FALSE;       
+
+		return FALSE;
     }
-    
+
     function delete($table,$fieldID,$ID){
         $this->db->where($fieldID,$ID);
         $this->db->delete($table);
@@ -81,9 +75,9 @@ class Vendas_model extends CI_Model {
 		{
 			return TRUE;
 		}
-		
-		return FALSE;        
-    }   
+
+		return FALSE;
+    }
 
     function count($table){
 	return $this->db->count_all($table);

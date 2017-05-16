@@ -1,13 +1,7 @@
 <?php
 
 class Produtos extends CI_Controller {
-    
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-    
+
     function __construct() {
         parent::__construct();
         if ((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))) {
@@ -24,7 +18,7 @@ class Produtos extends CI_Controller {
     }
 
     function gerenciar(){
-        
+
         if(!$this->permission->checkPermission($this->session->userdata('permissao'),'vProduto')){
            $this->session->set_flashdata('error','Você não tem permissão para visualizar produtos.');
            redirect(base_url());
@@ -32,8 +26,8 @@ class Produtos extends CI_Controller {
 
         $this->load->library('table');
         $this->load->library('pagination');
-        
-        
+
+
         $config['base_url'] = base_url().'index.php/produtos/gerenciar/';
         $config['total_rows'] = $this->produtos_model->count('produtos');
         $config['per_page'] = 10;
@@ -55,17 +49,17 @@ class Produtos extends CI_Controller {
         $config['first_tag_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
         $config['last_tag_close'] = '</li>';
-        
-        $this->pagination->initialize($config); 	
+
+        $this->pagination->initialize($config);
 
 	    $this->data['results'] = $this->produtos_model->get('produtos','idProdutos,descricao,unidade,precoCompra,precoVenda,estoque,estoqueMinimo','',$config['per_page'],$this->uri->segment(3));
-       
+
 	    $this->data['view'] = 'produtos/produtos';
        	$this->load->view('tema/topo',$this->data);
-       
-		
+
+
     }
-	
+
     function adicionar() {
 
         if(!$this->permission->checkPermission($this->session->userdata('permissao'),'aProduto')){
@@ -101,7 +95,7 @@ class Produtos extends CI_Controller {
         }
         $this->data['view'] = 'produtos/adicionarProduto';
         $this->load->view('tema/topo', $this->data);
-     
+
     }
 
     function editar() {
@@ -146,17 +140,17 @@ class Produtos extends CI_Controller {
 
         $this->data['view'] = 'produtos/editarProduto';
         $this->load->view('tema/topo', $this->data);
-     
+
     }
 
 
     function visualizar() {
-        
+
         if(!$this->uri->segment(3) || !is_numeric($this->uri->segment(3))){
             $this->session->set_flashdata('error','Item não pode ser encontrado, parâmetro não foi passado corretamente.');
             redirect('controle');
         }
-        
+
         if(!$this->permission->checkPermission($this->session->userdata('permissao'),'vProduto')){
            $this->session->set_flashdata('error','Você não tem permissão para visualizar produtos.');
            redirect(base_url());
@@ -171,9 +165,9 @@ class Produtos extends CI_Controller {
 
         $this->data['view'] = 'produtos/visualizarProduto';
         $this->load->view('tema/topo', $this->data);
-     
+
     }
-	
+
     function excluir(){
 
         if(!$this->permission->checkPermission($this->session->userdata('permissao'),'dProduto')){
@@ -181,11 +175,11 @@ class Produtos extends CI_Controller {
            redirect(base_url());
         }
 
-        
+
         $id =  $this->input->post('id');
         if ($id == null){
 
-            $this->session->set_flashdata('error','Erro ao tentar excluir produto.');            
+            $this->session->set_flashdata('error','Erro ao tentar excluir produto.');
             redirect(base_url().'index.php/produtos/gerenciar/');
         }
 
@@ -195,12 +189,11 @@ class Produtos extends CI_Controller {
 
         $this->db->where('produtos_id', $id);
         $this->db->delete('itens_de_vendas');
-        
-        $this->produtos_model->delete('produtos','idProdutos',$id);             
-        
 
-        $this->session->set_flashdata('success','Produto excluido com sucesso!');            
+        $this->produtos_model->delete('produtos','idProdutos',$id);
+
+
+        $this->session->set_flashdata('success','Produto excluido com sucesso!');
         redirect(base_url().'index.php/produtos/gerenciar/');
     }
 }
-

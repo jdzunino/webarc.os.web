@@ -1,13 +1,7 @@
 <?php
 
 class Clientes extends CI_Controller {
-    
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-    
+
     function __construct() {
         parent::__construct();
             if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
@@ -15,9 +9,11 @@ class Clientes extends CI_Controller {
             }
             $this->load->helper(array('codegen_helper'));
             $this->load->model('clientes_model','',TRUE);
+            $this->load->model('estados_model','',TRUE);
+            $this->load->model('cidades_model','',TRUE);
             $this->data['menuClientes'] = 'clientes';
-	}	
-	
+	}
+
 	function index(){
 		$this->gerenciar();
 	}
@@ -30,8 +26,8 @@ class Clientes extends CI_Controller {
         }
         $this->load->library('table');
         $this->load->library('pagination');
-        
-   
+
+
         $config['base_url'] = base_url().'index.php/clientes/gerenciar/';
         $config['total_rows'] = $this->clientes_model->count('clientes');
         $config['per_page'] = 10;
@@ -53,18 +49,16 @@ class Clientes extends CI_Controller {
         $config['first_tag_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
         $config['last_tag_close'] = '</li>';
-        
-        $this->pagination->initialize($config); 	
-        
-	    $this->data['results'] = $this->clientes_model->get('clientes','idClientes,nomeCliente,documento,telefone,celular,email,rua,numero,bairro,cidade,estado,cep','',$config['per_page'],$this->uri->segment(3));
-       	
+
+        $this->pagination->initialize($config);
+
+	       $this->data['results'] = $this->clientes_model->get('clientes','idClientes,nomeCliente,documento,telefone,celular,email,rua,numero,bairro,cidade_id,cep','',$config['per_page'],$this->uri->segment(3));
+
        	$this->data['view'] = 'clientes/clientes';
        	$this->load->view('tema/topo',$this->data);
-	  
-       
-		
+
     }
-	
+
     function adicionar() {
         if(!$this->permission->checkPermission($this->session->userdata('permissao'),'aCliente')){
            $this->session->set_flashdata('error','Você não tem permissão para adicionar clientes.');
@@ -77,17 +71,17 @@ class Clientes extends CI_Controller {
         if ($this->form_validation->run('clientes') == false) {
             $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
         } else {
+
             $data = array(
                 'nomeCliente' => set_value('nomeCliente'),
                 'documento' => set_value('documento'),
                 'telefone' => set_value('telefone'),
-                'celular' => $this->input->post('celular'),
+                'celular' => set_value('celular'),
                 'email' => set_value('email'),
                 'rua' => set_value('rua'),
                 'numero' => set_value('numero'),
                 'bairro' => set_value('bairro'),
-                'cidade' => set_value('cidade'),
-                'estado' => set_value('estado'),
+                'cidade_id' =>  set_value('cidade_id'),
                 'cep' => set_value('cep'),
                 'dataCadastro' => date('Y-m-d')
             );
@@ -99,6 +93,7 @@ class Clientes extends CI_Controller {
                 $this->data['custom_error'] = '<div class="form_error"><p>Ocorreu um erro.</p></div>';
             }
         }
+
         $this->data['view'] = 'clientes/adicionarCliente';
         $this->load->view('tema/topo', $this->data);
 
@@ -123,6 +118,7 @@ class Clientes extends CI_Controller {
         if ($this->form_validation->run('clientes') == false) {
             $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
         } else {
+
             $data = array(
                 'nomeCliente' => $this->input->post('nomeCliente'),
                 'documento' => $this->input->post('documento'),
@@ -132,8 +128,7 @@ class Clientes extends CI_Controller {
                 'rua' => $this->input->post('rua'),
                 'numero' => $this->input->post('numero'),
                 'bairro' => $this->input->post('bairro'),
-                'cidade' => $this->input->post('cidade'),
-                'estado' => $this->input->post('estado'),
+                'cidade_id' => $this->input->post('cidade_id'),
                 'cep' => $this->input->post('cep')
             );
 
@@ -145,8 +140,11 @@ class Clientes extends CI_Controller {
             }
         }
 
-
         $this->data['result'] = $this->clientes_model->getById($this->uri->segment(3));
+        $cidade = $this->cidades_model->getById($this->data['result']->cidade_id);
+        $estado = $this->estados_model->getById($cidade->estado_id);
+        $this->data['result']->cidade = $estado->sigla.' | '.$cidade->nome;
+
         $this->data['view'] = 'clientes/editarCliente';
         $this->load->view('tema/topo', $this->data);
 
@@ -166,26 +164,30 @@ class Clientes extends CI_Controller {
 
         $this->data['custom_error'] = '';
         $this->data['result'] = $this->clientes_model->getById($this->uri->segment(3));
+        $cidade = $this->cidades_model->getById($this->data['result']->cidade_id);
+        $estado = $this->estados_model->getById($cidade->estado_id);
+        $this->data['result']->cidade = $estado->sigla.' | '.$cidade->nome;
+
         $this->data['results'] = $this->clientes_model->getOsByCliente($this->uri->segment(3));
         $this->data['view'] = 'clientes/visualizar';
         $this->load->view('tema/topo', $this->data);
 
-        
+
     }
-	
+
     public function excluir(){
 
-            
+
             if(!$this->permission->checkPermission($this->session->userdata('permissao'),'dCliente')){
                $this->session->set_flashdata('error','Você não tem permissão para excluir clientes.');
                redirect(base_url());
             }
 
-            
+
             $id =  $this->input->post('id');
             if ($id == null){
 
-                $this->session->set_flashdata('error','Erro ao tentar excluir cliente.');            
+                $this->session->set_flashdata('error','Erro ao tentar excluir cliente.');
                 redirect(base_url().'index.php/clientes/gerenciar/');
             }
 
@@ -231,10 +233,19 @@ class Clientes extends CI_Controller {
 
 
 
-            $this->clientes_model->delete('clientes','idClientes',$id); 
+            $this->clientes_model->delete('clientes','idClientes',$id);
 
-            $this->session->set_flashdata('success','Cliente excluido com sucesso!');            
+            $this->session->set_flashdata('success','Cliente excluido com sucesso!');
             redirect(base_url().'index.php/clientes/gerenciar/');
     }
-}
 
+    public function autoCompleteCidade(){
+
+        if (isset($_GET['term'])){
+          $q = $_GET['term'];
+          $estado = null;
+          $this->cidades_model->autoCompleteCidade($q, $estado);
+        }
+
+    }
+}
