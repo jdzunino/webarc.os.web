@@ -2,22 +2,16 @@
 
 class Conecte_model extends CI_Model {
 
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-    
 	public function getLastOs($cliente){
-		
+
 		$this->db->where('clientes_id',$cliente);
 		$this->db->limit(5);
 
 		return $this->db->get('os')->result();
-	}	
+	}
 
 	public function getLastCompras($cliente){
-		
+
 		$this->db->select('vendas.*,usuarios.nome');
 		$this->db->from('vendas');
 		$this->db->join('usuarios', 'usuarios.idUsuarios = vendas.usuarios_id');
@@ -29,7 +23,7 @@ class Conecte_model extends CI_Model {
 
 
 	public function getCompras($table,$fields,$where='',$perpage=0,$start=0,$one=false,$array='array',$cliente){
-        
+
         $this->db->select($fields);
         $this->db->from($table);
         $this->db->join('usuarios', 'vendas.usuarios_id = usuarios.idUsuarios', 'left');
@@ -38,16 +32,16 @@ class Conecte_model extends CI_Model {
         if($where){
             $this->db->where($where);
         }
-        
+
         $query = $this->db->get();
-        
+
         $result =  !$one  ? $query->result() : $query->row();
         return $result;
     }
 
 
     public function getOs($table,$fields,$where='',$perpage=0,$start=0,$one=false,$array='array',$cliente){
-        
+
         $this->db->select($fields);
         $this->db->from($table);
         $this->db->join('usuarios', 'os.usuarios_id = usuarios.idUsuarios', 'left');
@@ -56,9 +50,9 @@ class Conecte_model extends CI_Model {
         if($where){
             $this->db->where($where);
         }
-        
+
         $query = $this->db->get();
-        
+
         $result =  !$one  ? $query->result() : $query->row();
         return $result;
     }
@@ -69,7 +63,7 @@ class Conecte_model extends CI_Model {
 	}
 
     public function getDados(){
-        
+
         $this->db->where('idclientes',$this->session->userdata('id'));
         $this->db->limit(1);
         return $this->db->get('clientes')->row();
@@ -84,8 +78,8 @@ class Conecte_model extends CI_Model {
         {
             return TRUE;
         }
-        
-        return FALSE;       
+
+        return FALSE;
     }
 
 }

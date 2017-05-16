@@ -35,13 +35,8 @@ $config = array('clientes' => array(array(
                                 	'rules'=>'required|trim|xss_clean'
                                 ),
 								array(
-                                	'field'=>'cidade',
+                                	'field'=>'cidade_id',
                                 	'label'=>'Cidade',
-                                	'rules'=>'required|trim|xss_clean'
-                                ),
-								array(
-                                	'field'=>'estado',
-                                	'label'=>'Estado',
                                 	'rules'=>'required|trim|xss_clean'
                                 ),
 								array(
@@ -133,11 +128,6 @@ $config = array('clientes' => array(array(
                                     'rules'=>'required|trim|xss_clean'
                                 ),
                                 array(
-                                    'field'=>'estado',
-                                    'label'=>'Estado',
-                                    'rules'=>'required|trim|xss_clean'
-                                ),
-                                array(
                                     'field'=>'email',
                                     'label'=>'Email',
                                     'rules'=>'required|trim|valid_email|xss_clean'
@@ -157,7 +147,7 @@ $config = array('clientes' => array(array(
                                     'label'=>'Situacao',
                                     'rules'=>'required|trim|xss_clean'
                                 ))
-                ,      
+                ,
                 'os' => array(array(
                                     'field'=>'dataInicial',
                                     'label'=>'DataInicial',
@@ -237,7 +227,7 @@ $config = array('clientes' => array(array(
                                     'label'=>'Data Vencimento',
                                     'rules'=>'required|trim|xss_clean'
                                 ),
-                        
+
                                 array(
                                     'field'=>'cliente',
                                     'label'=>'Cliente',
@@ -292,4 +282,3 @@ $config = array('clientes' => array(array(
                                     'rules'=>'trim|xss_clean|required'
                                 ))
 		);
-			   

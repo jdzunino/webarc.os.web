@@ -2,19 +2,12 @@
 
 class Relatorios extends CI_Controller{
 
-
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-    
     public function __construct() {
         parent::__construct();
         if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
             redirect('controle/login');
         }
-        
+
         $this->load->model('Relatorios_model','',TRUE);
         $this->data['menuRelatorios'] = 'Relatórios';
 
@@ -55,7 +48,7 @@ class Relatorios extends CI_Controller{
         //$this->load->view('relatorios/imprimir/imprimirClientes', $data);
         $html = $this->load->view('relatorios/imprimir/imprimirClientes', $data, true);
         pdf_create($html, 'relatorio_clientes' . date('d/m/y'), TRUE);
-    
+
     }
 
     public function clientesRapid(){
@@ -97,7 +90,7 @@ class Relatorios extends CI_Controller{
         $this->load->helper('mpdf');
         $html = $this->load->view('relatorios/imprimir/imprimirProdutos', $data, true);
         pdf_create($html, 'relatorio_produtos' . date('d/m/y'), TRUE);
-        
+
     }
 
     public function produtosCustom(){
@@ -187,7 +180,7 @@ class Relatorios extends CI_Controller{
            $this->session->set_flashdata('error','Você não tem permissão para gerar relatórios de OS.');
            redirect(base_url());
         }
-        
+
         $dataInicial = $this->input->get('dataInicial');
         $dataFinal = $this->input->get('dataFinal');
         $cliente = $this->input->get('cliente');
@@ -210,7 +203,7 @@ class Relatorios extends CI_Controller{
 
         $this->data['view'] = 'relatorios/rel_financeiro';
         $this->load->view('tema/topo',$this->data);
-    
+
     }
 
 

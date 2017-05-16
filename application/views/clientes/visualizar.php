@@ -5,9 +5,9 @@
             <li><a data-toggle="tab" href="#tab2">Ordens de Serviço</a></li>
             <div class="buttons">
                     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'eCliente')){
-                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/clientes/editar/'.$result->idClientes.'"><i class="icon-pencil icon-white"></i> Editar</a>'; 
+                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/clientes/editar/'.$result->idClientes.'"><i class="icon-pencil icon-white"></i> Editar</a>';
                     } ?>
-                    
+
             </div>
         </ul>
     </div>
@@ -99,7 +99,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: right"><strong>Cidade</strong></td>
-                                                    <td><?php echo $result->cidade ?> - <?php echo $result->estado ?></td>
+                                                    <td><?php echo $result->cidade ?> </td>
                                                 </tr>
                                                 <tr>
                                                     <td style="text-align: right"><strong>CEP</strong></td>
@@ -114,14 +114,14 @@
 
 
 
-          
+
         </div>
 
 
         <!--Tab 2-->
         <div id="tab2" class="tab-pane" style="min-height: 300px">
             <?php if (!$results) { ?>
-                
+
                         <table class="table table-bordered ">
                             <thead>
                                 <tr style="backgroud-color: #2D335B">
@@ -140,11 +140,11 @@
                                 </tr>
                             </tbody>
                         </table>
-                
+
                 <?php } else { ?>
 
 
-              
+
 
                         <table class="table table-bordered ">
                             <thead>
@@ -171,12 +171,12 @@
 
                     echo '<td>';
                     if($this->permission->checkPermission($this->session->userdata('permissao'),'vOs')){
-                        echo '<a href="' . base_url() . 'index.php/os/visualizar/' . $r->idOs . '" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes"><i class="icon-eye-open"></i></a>'; 
+                        echo '<a href="' . base_url() . 'index.php/os/visualizar/' . $r->idOs . '" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes"><i class="icon-eye-open"></i></a>';
                     }
                     if($this->permission->checkPermission($this->session->userdata('permissao'),'eOs')){
-                        echo '<a href="' . base_url() . 'index.php/os/editar/' . $r->idOs . '" class="btn btn-info tip-top" title="Editar OS"><i class="icon-pencil icon-white"></i></a>'; 
+                        echo '<a href="' . base_url() . 'index.php/os/editar/' . $r->idOs . '" class="btn btn-info tip-top" title="Editar OS"><i class="icon-pencil icon-white"></i></a>';
                     }
-                    
+
                     echo  '</td>';
                     echo '</tr>';
                 } ?>
@@ -185,7 +185,7 @@
                             </tr>
                         </tbody>
                     </table>
-            
+
 
             <?php  } ?>
 

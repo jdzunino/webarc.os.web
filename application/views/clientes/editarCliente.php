@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
 <div class="row-fluid" style="margin-top:0">
     <div class="span12">
         <div class="widget-box">
@@ -47,6 +50,28 @@
                     </div>
 
                     <div class="control-group" class="control-label">
+                        <label for="cep" class="control-label">CEP<span class="required">*</span></label>
+                        <div class="controls">
+                            <input id="cep" type="text" name="cep" value="<?php echo $result->cep; ?>"  />
+                        </div>
+                    </div>
+
+                    <div class="control-group" class="control-label">
+                        <label for="cidade" class="control-label">Cidade<span class="required">*</span></label>
+                        <div class="controls">
+                          <input id="cidade" type="text" name="cidade" value="<?php echo $result->cidade; ?>"  />
+                          <input id="cidade_id" class="span12" type="hidden" name="cidade_id" value="<?php echo $result->cidade_id; ?>"  />
+                        </div>
+                    </div>
+
+                    <div class="control-group" class="control-label">
+                        <label for="bairro" class="control-label">Bairro<span class="required">*</span></label>
+                        <div class="controls">
+                            <input id="bairro" type="text" name="bairro" value="<?php echo $result->bairro; ?>"  />
+                        </div>
+                    </div>
+
+                    <div class="control-group" class="control-label">
                         <label for="rua" class="control-label">Rua<span class="required">*</span></label>
                         <div class="controls">
                             <input id="rua" type="text" name="rua" value="<?php echo $result->rua; ?>"  />
@@ -59,36 +84,6 @@
                             <input id="numero" type="text" name="numero" value="<?php echo $result->numero; ?>"  />
                         </div>
                     </div>
-
-                    <div class="control-group" class="control-label">
-                        <label for="bairro" class="control-label">Bairro<span class="required">*</span></label>
-                        <div class="controls">
-                            <input id="bairro" type="text" name="bairro" value="<?php echo $result->bairro; ?>"  />
-                        </div>
-                    </div>
-
-                    <div class="control-group" class="control-label">
-                        <label for="cidade" class="control-label">Cidade<span class="required">*</span></label>
-                        <div class="controls">
-                            <input id="cidade" type="text" name="cidade" value="<?php echo $result->cidade; ?>"  />
-                        </div>
-                    </div>
-
-                    <div class="control-group" class="control-label">
-                        <label for="estado" class="control-label">Estado<span class="required">*</span></label>
-                        <div class="controls">
-                            <input id="estado" type="text" name="estado" value="<?php echo $result->estado; ?>"  />
-                        </div>
-                    </div>
-
-                    <div class="control-group" class="control-label">
-                        <label for="cep" class="control-label">CEP<span class="required">*</span></label>
-                        <div class="controls">
-                            <input id="cep" type="text" name="cep" value="<?php echo $result->cep; ?>"  />
-                        </div>
-                    </div>
-
-
 
                     <div class="form-actions">
                         <div class="span12">
@@ -103,12 +98,15 @@
         </div>
     </div>
 </div>
-
-
-
-<script src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
 <script type="text/javascript">
       $(document).ready(function(){
+        $("#cidade").autocomplete({
+              source: '<?php echo base_url(); ?>'+"index.php/clientes/autoCompleteCidade",
+              minLength: 1,
+              select: function( event, ui ) {
+                   $("#cidade_id").val(ui.item.id);
+              }
+        });
            $('#formCliente').validate({
             rules :{
                   nomeCliente:{ required: true},
@@ -119,7 +117,7 @@
                   numero:{ required: true},
                   bairro:{ required: true},
                   cidade:{ required: true},
-                  estado:{ required: true},
+                  cidade_id:{ required: true},
                   cep:{ required: true}
             },
             messages:{
@@ -131,7 +129,7 @@
                   numero:{ required: 'Campo Requerido.'},
                   bairro:{ required: 'Campo Requerido.'},
                   cidade:{ required: 'Campo Requerido.'},
-                  estado:{ required: 'Campo Requerido.'},
+                  cidade_id:{ required: 'Campo Requerido.'},
                   cep:{ required: 'Campo Requerido.'}
 
             },
@@ -148,4 +146,3 @@
            });
       });
 </script>
-

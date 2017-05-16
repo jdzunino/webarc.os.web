@@ -1,40 +1,36 @@
 <?php
-class Permissoes_model extends CI_Model {
+class Cidades_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
     }
 
-
-    function get($table,$fields,$where='',$perpage=0,$start=0,$one=false,$array='array'){
-
-        $this->db->select($fields);
-        $this->db->from($table);
-        $this->db->order_by('idPermissao','desc');
-        $this->db->limit($perpage,$start);
-        if($where){
-            $this->db->where($where);
+    public function get($q){
+        $this->db->select('cidades.*, estados.sigla');
+        $this->db->from('cidades');
+        $this->db->join('estados','estados.idEstado = cidades.estado_id');
+        $where = '';
+        if($q){
+          $where = 'cidades.nome like \'%'.$q.'%\' ';
+          $this->db->where($where);
         }
-
         $query = $this->db->get();
-
-        $result =  !$one  ? $query->result() : $query->row();
-        return $result;
+        return $query->result_array();
     }
 
-    function getActive($table,$fields){
+    public function autoCompleteCidade($q, $estado){
 
-        $this->db->select($fields);
-        $this->db->from($table);
-        $this->db->where('situacao',1);
-        $query = $this->db->get();
-        return $query->result();
+        $result = $this->get($q, $estado);
+            foreach ($result as $row){
+                $row_set[] = array('label'=>$row['sigla'].' | '.$row['nome'], 'id'=>$row['idCidade'], 'estado_id'=>$row['estado_id']);
+            }
+            echo json_encode($row_set);
     }
 
     function getById($id){
-        $this->db->where('idPermissao',$id);
+        $this->db->where('idCidade',$id);
         $this->db->limit(1);
-        return $this->db->get('permissoes')->row();
+        return $this->db->get('cidades')->row();
     }
 
     function add($table,$data){
@@ -74,6 +70,3 @@ class Permissoes_model extends CI_Model {
 		return $this->db->count_all($table);
 	}
 }
-
-/* End of file permissoes_model.php */
-/* Location: ./application/models/permissoes_model.php */

@@ -1,21 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/**
- * Permission Class
- *
- * Biblioteca para controle de permissões
- *
- * @author		Ramon Silva
- * @copyright	        Copyright (c) 2013, Ramon Silva.
- * @since		Version 1.0
- * v... Visualizar
- * e... Editar
- * d... Deletar ou Desabilitar
- * c... Cadastrar
- */
-
-
-
 class Permission{
 
     var $Permission = array();
@@ -44,12 +28,12 @@ class Permission{
 
         if(is_array($this->Permission[0])){
 
-        
+
             if(array_key_exists($atividade, $this->Permission[0])){
                 // compara a atividade requisitada com a permissão.
                 if ($this->Permission[0][$atividade] == 1) {
                     return true;
-                } 
+                }
                 return false;
 
             }
@@ -66,7 +50,7 @@ class Permission{
             $this->CI->db->where($this->pk,$id);
             $this->CI->db->limit(1);
             $array = $this->CI->db->get($this->table)->row_array();
-            
+
             if(count($array) > 0){
 
                 $array = unserialize($array[$this->select]);
@@ -75,7 +59,7 @@ class Permission{
                 return true;
             }
             return false;
-            
+
         }
         return false;
 

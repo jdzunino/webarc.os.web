@@ -1,14 +1,7 @@
 <?php
 
 class Usuarios extends CI_Controller {
-    
 
-    /**
-     * author: Ramon Silva 
-     * email: silva018-mg@yahoo.com.br
-     * 
-     */
-    
     function __construct() {
 
         parent::__construct();
@@ -31,9 +24,9 @@ class Usuarios extends CI_Controller {
 	}
 
 	function gerenciar(){
-        
+
         $this->load->library('pagination');
-        
+
 
         $config['base_url'] = base_url().'index.php/usuarios/gerenciar/';
         $config['total_rows'] = $this->usuarios_model->count('usuarios');
@@ -49,38 +42,37 @@ class Usuarios extends CI_Controller {
         $config['prev_tag_open'] = '<li>';
         $config['prev_tag_close'] = '</li>';
         $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';	
+        $config['next_tag_close'] = '</li>';
         $config['first_link'] = 'Primeira';
         $config['last_link'] = 'Última';
         $config['first_tag_open'] = '<li>';
         $config['first_tag_close'] = '</li>';
         $config['last_tag_open'] = '<li>';
         $config['last_tag_close'] = '</li>';
-        
-        $this->pagination->initialize($config); 	
+
+        $this->pagination->initialize($config);
 
 		$this->data['results'] = $this->usuarios_model->get($config['per_page'],$this->uri->segment(3));
-       
+
 	    $this->data['view'] = 'usuarios/usuarios';
        	$this->load->view('tema/topo',$this->data);
 
-       
-		
+
+
     }
-	
-    function adicionar(){  
-          
-        $this->load->library('form_validation');    
-		$this->data['custom_error'] = '';
-		
+
+    function adicionar(){
+
+        $this->load->library('form_validation');
+		    $this->data['custom_error'] = '';
+
         if ($this->form_validation->run('usuarios') == false)
         {
              $this->data['custom_error'] = (validation_errors() ? '<div class="alert alert-danger">'.validation_errors().'</div>' : false);
-
         } else
-        {     
+        {
 
-            $this->load->library('encrypt');                       
+            $this->load->library('encrypt');
             $data = array(
                     'nome' => set_value('nome'),
 					'rg' => set_value('rg'),
@@ -95,10 +87,10 @@ class Usuarios extends CI_Controller {
 					'telefone' => set_value('telefone'),
 					'celular' => set_value('celular'),
 					'situacao' => set_value('situacao'),
-                    'permissoes_id' => $this->input->post('permissoes_id'),
+          'permissoes_id' => $this->input->post('permissoes_id'),
 					'dataCadastro' => date('Y-m-d')
             );
-           
+
 			if ($this->usuarios_model->add('usuarios',$data) == TRUE)
 			{
                                 $this->session->set_flashdata('success','Usuário cadastrado com sucesso!');
@@ -110,23 +102,23 @@ class Usuarios extends CI_Controller {
 
 			}
 		}
-        
+
         $this->load->model('permissoes_model');
-        $this->data['permissoes'] = $this->permissoes_model->getActive('permissoes','permissoes.idPermissao,permissoes.nome');   
-		$this->data['view'] = 'usuarios/adicionarUsuario';
+        $this->data['permissoes'] = $this->permissoes_model->getActive('permissoes','permissoes.idPermissao,permissoes.nome');
+		    $this->data['view'] = 'usuarios/adicionarUsuario';
         $this->load->view('tema/topo',$this->data);
-   
-       
-    }	
-    
-    function editar(){  
-        
+
+
+    }
+
+    function editar(){
+
         if(!$this->uri->segment(3) || !is_numeric($this->uri->segment(3))){
             $this->session->set_flashdata('error','Item não pode ser encontrado, parâmetro não foi passado corretamente.');
             redirect('controle');
         }
 
-        $this->load->library('form_validation');    
+        $this->load->library('form_validation');
 		$this->data['custom_error'] = '';
         $this->form_validation->set_rules('nome', 'Nome', 'trim|required|xss_clean');
         $this->form_validation->set_rules('rg', 'RG', 'trim|required|xss_clean');
@@ -146,7 +138,7 @@ class Usuarios extends CI_Controller {
              $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">'.validation_errors().'</div>' : false);
 
         } else
-        { 
+        {
 
             if ($this->input->post('idUsuarios') == 1 && $this->input->post('situacao') == 0)
             {
@@ -154,9 +146,9 @@ class Usuarios extends CI_Controller {
                 redirect(base_url().'index.php/usuarios/editar/'.$this->input->post('idUsuarios'));
             }
 
-            $senha = $this->input->post('senha'); 
+            $senha = $this->input->post('senha');
             if($senha != null){
-                $this->load->library('encrypt');   
+                $this->load->library('encrypt');
                 $senha = $this->encrypt->sha1($senha);
 
                 $data = array(
@@ -175,7 +167,7 @@ class Usuarios extends CI_Controller {
                         'situacao' => $this->input->post('situacao'),
                         'permissoes_id' => $this->input->post('permissoes_id')
                 );
-            }  
+            }
 
             else{
 
@@ -195,9 +187,9 @@ class Usuarios extends CI_Controller {
                         'permissoes_id' => $this->input->post('permissoes_id')
                 );
 
-            }  
+            }
 
-           
+
 			if ($this->usuarios_model->edit('usuarios',$data,'idUsuarios',$this->input->post('idUsuarios')) == TRUE)
 			{
                 $this->session->set_flashdata('success','Usuário editado com sucesso!');
@@ -212,19 +204,18 @@ class Usuarios extends CI_Controller {
 
 		$this->data['result'] = $this->usuarios_model->getById($this->uri->segment(3));
         $this->load->model('permissoes_model');
-        $this->data['permissoes'] = $this->permissoes_model->getActive('permissoes','permissoes.idPermissao,permissoes.nome'); 
+        $this->data['permissoes'] = $this->permissoes_model->getActive('permissoes','permissoes.idPermissao,permissoes.nome');
 
 		$this->data['view'] = 'usuarios/editarUsuario';
         $this->load->view('tema/topo',$this->data);
-			
-      
+
+
     }
-	
+
     public function excluir(){
 
             $ID =  $this->uri->segment(3);
-            $this->usuarios_model->delete('usuarios','idUsuarios',$ID);             
+            $this->usuarios_model->delete('usuarios','idUsuarios',$ID);
             redirect(base_url().'index.php/usuarios/gerenciar/');
     }
 }
-
