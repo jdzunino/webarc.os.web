@@ -109,6 +109,28 @@
                }
          });
 
+         $("#cep").focusout(function(){
+          var url = "https://viacep.com.br/ws/"+$("#cep").val()+"/json/";
+          $.ajax({
+                type: "GET",
+                url: url,
+                dataType: 'text',
+                success: function (responseData) {
+                    var json = JSON.parse(responseData);
+                    $("#rua").val(json.logradouro);
+                    $("#bairro").val(json.bairro);
+
+                    //Falta buscar cidade_id
+                    $("#cidade").val(json.localidade);
+                    $("#numero").focus();
+                },
+                error: function (request, status, error) {
+                    console.log(request.responseText);
+
+                }
+            });
+        });
+
            $('#formCliente').validate({
             rules :{
                   nomeCliente:{ required: true},
