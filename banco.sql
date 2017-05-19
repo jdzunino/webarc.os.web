@@ -18,6 +18,39 @@ CREATE TABLE IF NOT EXISTS `ci_sessions` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = latin1;
 
+-- -----------------------------------------------------
+-- Table `estados`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS  `estados`
+(
+    `idEstado` INT(11) NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    sigla VARCHAR(2) NOT NULL,
+    PRIMARY KEY (`idEstado`)
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;
+
+-- -----------------------------------------------------
+-- Table `cidades`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cidades`
+(
+    `idCidade` INT(11) NOT NULL AUTO_INCREMENT,
+    nome VARCHAR(255) NOT NULL,
+    estado_id INT(11) NOT NULL,
+    populacao_2010 integer,
+    PRIMARY KEY (`idCidade`),
+    CONSTRAINT `fk_cidades_estado_id`
+      FOREIGN KEY (`estado_id`)
+      REFERENCES `estados` (`idEstado`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+)
+ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = latin1;)
 
 -- -----------------------------------------------------
 -- Table `clientes`
@@ -33,14 +66,37 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `rua` VARCHAR(70) NULL DEFAULT NULL,
   `numero` VARCHAR(15) NULL DEFAULT NULL,
   `bairro` VARCHAR(45) NULL DEFAULT NULL,
-  `cidade` VARCHAR(45) NULL DEFAULT NULL,
-  `estado` VARCHAR(20) NULL DEFAULT NULL,
+  'cidade_id' INT(11) NOT NULL,
   `cep` VARCHAR(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`idClientes`))
+  PRIMARY KEY (`idClientes`),
+  CONSTRAINT `fk_clientes_cidade_id`
+      FOREIGN KEY (`cidade_id`)
+      REFERENCES `cidades` (`idCidade`)
+      ON DELETE NO ACTION
+      ON UPDATE NO ACTION
+)
 ENGINE = InnoDB
 AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = latin1;
 
+-- -----------------------------------------------------
+-- Table `clientes` - Inclusão campos cidade_id
+-- -----------------------------------------------------
+
+ALTER TABLE `clientes` ADD cidade_id INT(11);
+
+/**Falta ajustar para se já tiver a FOREIGN KEY não dar erro no script*/
+ALTER TABLE `clientes` ADD CONSTRAINT  `fk_clientes_cidade_id` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`idCidade`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+
+-- -----------------------------------------------------
+-- Table `clientes` - Inclusão campos cidade_id
+-- -----------------------------------------------------
+
+ALTER TABLE `clientes` ADD cidade_id INT(11);
+
+/**Falta ajustar para se já tiver a FOREIGN KEY não dar erro no script*/
+ALTER TABLE `clientes` ADD CONSTRAINT  `fk_clientes_cidade_id` FOREIGN KEY (`cidade_id`) REFERENCES `cidades` (`idCidade`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- -----------------------------------------------------
 -- Table `lancamentos`
