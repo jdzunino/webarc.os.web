@@ -13,6 +13,12 @@ class Cidades extends CI_Controller {
 		$this->load->model('cidades_model','',TRUE);
 	}
 
+  public function getByCodigoIbge(){
+      if (isset($_GET['codigoIbge'])){
+        echo json_encode($this->cidades_model->getByCodigoIbge($_GET['codigoIbge']));
+      }
+  }
+
     public function autoCompleteCidade(){
 
         if (isset($_GET['term'])){

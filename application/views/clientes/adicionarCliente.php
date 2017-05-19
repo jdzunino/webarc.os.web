@@ -120,9 +120,27 @@
                     $("#rua").val(json.logradouro);
                     $("#bairro").val(json.bairro);
 
-                    //Falta buscar cidade_id, verificar busca pelo ibge 
+                    //Falta buscar cidade_id, verificar busca pelo ibge
                     $("#cidade").val(json.localidade);
-                    $("#numero").focus();
+                    var codigoIbge6Digitos = parseInt(json.ibge / 10);
+                    $("#cidade").focus();
+
+                    url = '<?php echo base_url(); ?>'+"index.php/cidades/getByCodigoIbge?codigoIbge="+codigoIbge6Digitos;
+                    $.ajax({
+                          type: "GET",
+                          url: url,
+                          dataType: 'text',
+                          success: function (responseData) {
+                              var json = JSON.parse(responseData);
+
+                              $("#cidade_id").val(json.idCidade);
+                              $("#numero").focus();
+                          },
+                          error: function (request, status, error) {
+                              console.log(request.responseText);
+
+                          }
+                      });
                 },
                 error: function (request, status, error) {
                     console.log(request.responseText);

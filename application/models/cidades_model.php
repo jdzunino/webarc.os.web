@@ -33,6 +33,12 @@ class Cidades_model extends CI_Model {
         return $this->db->get('cidades')->row();
     }
 
+    function getByCodigoIbge($codigoIbge){
+        $this->db->where('codigo_ibge',$codigoIbge);
+        $this->db->limit(1);
+        return $this->db->get('cidades')->row();
+    }
+
     function add($table,$data){
         $this->db->insert($table, $data);
         if ($this->db->affected_rows() == '1')
