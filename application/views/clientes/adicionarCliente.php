@@ -120,8 +120,9 @@
                     $("#rua").val(json.logradouro);
                     $("#bairro").val(json.bairro);
 
-                    //Falta buscar cidade_id, verificar busca pelo ibge
                     $("#cidade").val(json.localidade);
+
+                    //Busca cidade_id, busca pelo código ibge da cidade
                     var codigoIbge6Digitos = parseInt(json.ibge / 10);
                     $("#cidade").focus();
 
