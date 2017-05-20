@@ -28,9 +28,12 @@ class Cidades_model extends CI_Model {
     }
 
     function getById($id){
+        $this->db->select('cidades.*, estados.sigla');
+        $this->db->from('cidades');
+        $this->db->join('estados','estados.idEstado = cidades.estado_id');
         $this->db->where('idCidade',$id);
         $this->db->limit(1);
-        return $this->db->get('cidades')->row();
+        return $this->db->get()->row();
     }
 
     function getByCodigoIbge($codigoIbge){

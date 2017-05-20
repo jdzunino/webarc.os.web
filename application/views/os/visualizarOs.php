@@ -9,9 +9,9 @@
                 <h5>Ordem de Serviço</h5>
                 <div class="buttons">
                     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'eOs')){
-                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/os/editar/'.$result->idOs.'"><i class="icon-pencil icon-white"></i> Editar</a>'; 
+                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/os/editar/'.$result->idOs.'"><i class="icon-pencil icon-white"></i> Editar</a>';
                     } ?>
-                    
+
                     <a id="imprimir" title="Imprimir" class="btn btn-mini btn-inverse" href=""><i class="icon-print icon-white"></i> Imprimir</a>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                         <table class="table">
                             <tbody>
                                 <?php if($emitente == null) {?>
-                                            
+
                                 <tr>
                                     <td colspan="3" class="alert">Você precisa configurar os dados do emitente. >>><a href="<?php echo base_url(); ?>index.php/controle/emitente">Configurar</a><<<</td>
                                 </tr>
@@ -37,7 +37,7 @@
                             </tbody>
                         </table>
 
-                
+
                         <table class="table">
                             <tbody>
                                 <tr>
@@ -47,7 +47,7 @@
                                                 <span><h5>Cliente</h5>
                                                 <span><?php echo $result->nomeCliente?></span><br/>
                                                 <span><?php echo $result->rua?>, <?php echo $result->numero?>, <?php echo $result->bairro?></span><br/>
-                                                <span><?php echo $result->cidade?> - <?php echo $result->estado?></span>
+                                                <span><?php echo $cidade->sigla?> | <?php echo  $cidade->nome?></span>
                                             </li>
                                         </ul>
                                     </td>
@@ -63,8 +63,8 @@
                                     </td>
                                 </tr>
                             </tbody>
-                        </table> 
-      
+                        </table>
+
                     </div>
 
                     <div style="margin-top: 0; padding-top: 0">
@@ -74,7 +74,7 @@
                     <h5>Descrição</h5>
                     <p>
                         <?php echo $result->descricaoProduto?>
-                        
+
                     </p>
                     <?php }?>
 
@@ -112,14 +112,14 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        
+
                                         foreach ($produtos as $p) {
 
                                             $totalProdutos = $totalProdutos + $p->subTotal;
                                             echo '<tr>';
                                             echo '<td>'.$p->descricao.'</td>';
                                             echo '<td>'.$p->quantidade.'</td>';
-                                            
+
                                             echo '<td>R$ '.number_format($p->subTotal,2,',','.').'</td>';
                                             echo '</tr>';
                                         }?>
@@ -131,7 +131,7 @@
                                     </tbody>
                                 </table>
                                <?php }?>
-                        
+
                         <?php if($servicos != null){?>
                         <table class="table table-bordered">
                                         <thead>
@@ -160,15 +160,15 @@
                                     </table>
                         <?php }?>
                         <hr />
-                    
+
                         <h4 style="text-align: right">Valor Total: R$ <?php echo number_format($totalProdutos + $totalServico,2,',','.');?></h4>
 
                     </div>
-            
 
-                    
-                    
-              
+
+
+
+
                 </div>
             </div>
         </div>
@@ -177,7 +177,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#imprimir").click(function(){         
+        $("#imprimir").click(function(){
             PrintElem('#printOs');
         })
 
@@ -208,7 +208,7 @@
 
 
             mywindow.document.write("</head><body >");
-            mywindow.document.write(data);          
+            mywindow.document.write(data);
             mywindow.document.write("</body></html>");
 
             mywindow.document.close(); // necessary for IE >= 10

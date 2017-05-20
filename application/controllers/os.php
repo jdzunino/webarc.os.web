@@ -11,6 +11,7 @@ class Os extends CI_Controller {
 
 		$this->load->helper(array('form','codegen_helper'));
 		$this->load->model('os_model','',TRUE);
+    $this->load->model('cidades_model','',TRUE);
 		$this->data['menuOs'] = 'OS';
 	}
 
@@ -260,6 +261,7 @@ class Os extends CI_Controller {
         $this->data['produtos'] = $this->os_model->getProdutos($this->uri->segment(3));
         $this->data['servicos'] = $this->os_model->getServicos($this->uri->segment(3));
         $this->data['emitente'] = $this->controle_model->getEmitente();
+        $this->data['cidade'] = $this->cidades_model->getById($this->data['result']->cidade_id);
 
         $this->data['view'] = 'os/visualizarOs';
         $this->load->view('tema/topo', $this->data);
