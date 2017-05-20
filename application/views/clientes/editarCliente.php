@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>application/views/clientes/clienteControle.js"></script>
 <div class="row-fluid" style="margin-top:0">
     <div class="span12">
         <div class="widget-box">
@@ -98,51 +99,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-      $(document).ready(function(){
-        $("#cidade").autocomplete({
-              source: '<?php echo base_url(); ?>'+"index.php/clientes/autoCompleteCidade",
-              minLength: 1,
-              select: function( event, ui ) {
-                   $("#cidade_id").val(ui.item.id);
-              }
-        });
-           $('#formCliente').validate({
-            rules :{
-                  nomeCliente:{ required: true},
-                  documento:{ required: true},
-                  telefone:{ required: true},
-                  email:{ required: true},
-                  rua:{ required: true},
-                  numero:{ required: true},
-                  bairro:{ required: true},
-                  cidade:{ required: true},
-                  cidade_id:{ required: true},
-                  cep:{ required: true}
-            },
-            messages:{
-                  nomeCliente :{ required: 'Campo Requerido.'},
-                  documento :{ required: 'Campo Requerido.'},
-                  telefone:{ required: 'Campo Requerido.'},
-                  email:{ required: 'Campo Requerido.'},
-                  rua:{ required: 'Campo Requerido.'},
-                  numero:{ required: 'Campo Requerido.'},
-                  bairro:{ required: 'Campo Requerido.'},
-                  cidade:{ required: 'Campo Requerido.'},
-                  cidade_id:{ required: 'Campo Requerido.'},
-                  cep:{ required: 'Campo Requerido.'}
-
-            },
-
-            errorClass: "help-inline",
-            errorElement: "span",
-            highlight:function(element, errorClass, validClass) {
-                $(element).parents('.control-group').addClass('error');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).parents('.control-group').removeClass('error');
-                $(element).parents('.control-group').addClass('success');
-            }
-           });
-      });
-</script>
