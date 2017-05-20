@@ -2,11 +2,11 @@
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
 
 <?php $situacao = $this->input->get('situacao');
-	  $periodo = $this->input->get('periodo');	
+	  $periodo = $this->input->get('periodo');
  ?>
 
 <style type="text/css">
-	
+
 	label.error{
 		color: #b94a48;
 	}
@@ -24,11 +24,11 @@
 
 <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'aLancamento')){ ?>
   <div class="span5" style="margin-left: 0">
-      <a href="#modalReceita" data-toggle="modal" role="button" class="btn btn-success tip-bottom" title="Cadastrar nova receita"><i class="icon-plus icon-white"></i> Nova Receita</a>  
+      <a href="#modalReceita" data-toggle="modal" role="button" class="btn btn-success tip-bottom" title="Cadastrar nova receita"><i class="icon-plus icon-white"></i> Nova Receita</a>
       <a href="#modalDespesa" data-toggle="modal" role="button" class="btn btn-danger tip-bottom" title="Cadastrar nova despesa"><i class="icon-plus icon-white"></i> Nova Despesa</a>
   </div>
 <?php } ?>
-	
+
 <div class="span7" style="margin-left: 0">
 	<form action="<?php echo current_url(); ?>" method="get" >
 		<div class="span4" style="margin-left: 0">
@@ -55,7 +55,7 @@
 			&nbsp
 			<button type="submit" class="span12 btn btn-primary">Filtrar</button>
 		</div>
-		
+
 	</form>
 </div>
 
@@ -124,7 +124,7 @@ if(!$results){?>
         </tr>
     </thead>
     <tbody>
-        <?php 
+        <?php
         $totalReceita = 0;
         $totalDespesa = 0;
         $saldo = 0;
@@ -132,27 +132,27 @@ if(!$results){?>
             $vencimento = date(('d/m/Y'),strtotime($r->data_vencimento));
             if($r->baixado == 0){$status = 'Pendente';}else{ $status = 'Pago';};
             if($r->tipo == 'receita'){ $label = 'success'; $totalReceita += $r->valor;} else{$label = 'important'; $totalDespesa += $r->valor;}
-            echo '<tr>'; 
+            echo '<tr>';
             echo '<td>'.$r->idLancamentos.'</td>';
             echo '<td><span class="label label-'.$label.'">'.ucfirst($r->tipo).'</span></td>';
             echo '<td>'.$r->cliente_fornecedor.'</td>';
-            echo '<td>'.$vencimento.'</td>';   
+            echo '<td>'.$vencimento.'</td>';
             echo '<td>'.$status.'</td>';
             echo '<td> R$ '.number_format($r->valor,2,',','.').'</td>';
-            
+
             echo '<td>';
             if($this->permission->checkPermission($this->session->userdata('permissao'),'eLancamento')){
-                echo '<a href="#modalEditar" style="margin-right: 1%" data-toggle="modal" role="button" idLancamento="'.$r->idLancamentos.'" descricao="'.$r->descricao.'" valor="'.$r->valor.'" vencimento="'.date('d/m/Y',strtotime($r->data_vencimento)).'" pagamento="'.date('d/m/Y', strtotime($r->data_pagamento)).'" baixado="'.$r->baixado.'" cliente="'.$r->cliente_fornecedor.'" formaPgto="'.$r->forma_pgto.'" tipo="'.$r->tipo.'" class="btn btn-info tip-top editar" title="Editar Lançamento"><i class="icon-pencil icon-white"></i></a>'; 
+                echo '<a href="#modalEditar" style="margin-right: 1%" data-toggle="modal" role="button" idLancamento="'.$r->idLancamentos.'" descricao="'.$r->descricao.'" valor="'.$r->valor.'" vencimento="'.date('d/m/Y',strtotime($r->data_vencimento)).'" pagamento="'.date('d/m/Y', strtotime($r->data_pagamento)).'" baixado="'.$r->baixado.'" cliente="'.$r->cliente_fornecedor.'" formaPgto="'.$r->forma_pgto.'" tipo="'.$r->tipo.'" class="btn btn-info tip-top editar" title="Editar Lançamento"><i class="icon-pencil icon-white"></i></a>';
             }
             if($this->permission->checkPermission($this->session->userdata('permissao'),'dLancamento')){
-                echo '<a href="#modalExcluir" data-toggle="modal" role="button" idLancamento="'.$r->idLancamentos.'" class="btn btn-danger tip-top excluir" title="Excluir Lançamento"><i class="icon-remove icon-white"></i></a>'; 
+                echo '<a href="#modalExcluir" data-toggle="modal" role="button" idLancamento="'.$r->idLancamentos.'" class="btn btn-danger tip-top excluir" title="Excluir Lançamento"><i class="icon-remove icon-white"></i></a>';
             }
-                     
+
             echo '</td>';
             echo '</tr>';
         }?>
         <tr>
-            
+
         </tr>
     </tbody>
     <tfoot>
@@ -174,7 +174,7 @@ if(!$results){?>
 </div>
 
 </div>
-	
+
 <?php echo $this->pagination->create_links();}?>
 
 
@@ -187,42 +187,42 @@ if(!$results){?>
     <h3 id="myModalLabel">WebArc - Adicionar Receita</h3>
   </div>
   <div class="modal-body">
-  		
+
   		<div class="span12 alert alert-info" style="margin-left: 0"> Obrigatório o preenchimento dos campos com asterisco.</div>
-    	<div class="span12" style="margin-left: 0"> 
+    	<div class="span12" style="margin-left: 0">
     		<label for="descricao">Descrição</label>
     		<input class="span12" id="descricao" type="text" name="descricao"  />
     		<input id="urlAtual" type="hidden" name="urlAtual" value="<?php echo current_url() ?>"  />
-    	</div>	
-    	<div class="span12" style="margin-left: 0"> 
-    		<div class="span12" style="margin-left: 0"> 
+    	</div>
+    	<div class="span12" style="margin-left: 0">
+    		<div class="span12" style="margin-left: 0">
     			<label for="cliente">Cliente*</label>
     			<input class="span12" id="cliente" type="text" name="cliente"  />
     		</div>
-    		
-    		
+
+
     	</div>
-    	<div class="span12" style="margin-left: 0"> 
-    		<div class="span4" style="margin-left: 0">  
+    	<div class="span12" style="margin-left: 0">
+    		<div class="span4" style="margin-left: 0">
     			<label for="valor">Valor*</label>
-    			<input type="hidden" id="tipo" name="tipo" value="receita" />	
+    			<input type="hidden" id="tipo" name="tipo" value="receita" />
     			<input class="span12 money" id="valor" type="text" name="valor"  />
     		</div>
 	    	<div class="span4" >
 	    		<label for="vencimento">Data Vencimento*</label>
 	    		<input class="span12 datepicker" id="vencimento" type="text" name="vencimento"  />
 	    	</div>
-	    	
+
     	</div>
-    	<div class="span12" style="margin-left: 0"> 
+    	<div class="span12" style="margin-left: 0">
     		<div class="span4" style="margin-left: 0">
     			<label for="recebido">Recebido?</label>
-	    		&nbsp &nbsp &nbsp &nbsp<input  id="recebido" type="checkbox" name="recebido" value="1" />	
+	    		&nbsp &nbsp &nbsp &nbsp<input  id="recebido" type="checkbox" name="recebido" value="1" />
     		</div>
     		<div id="divRecebimento" class="span8" style=" display: none">
 	    		<div class="span6">
 	    			<label for="recebimento">Data Recebimento</label>
-		    		<input class="span12 datepicker" id="recebimento" type="text" name="recebimento" />	
+		    		<input class="span12 datepicker" id="recebimento" type="text" name="recebimento" />
 	    		</div>
 	    		<div class="span6">
 		    		<label for="formaPgto">Forma Pgto</label>
@@ -232,11 +232,11 @@ if(!$results){?>
 		    			<option value="Cheque">Cheque</option>
 		    			<option value="Boleto">Boleto</option>
 		    			<option value="Depósito">Depósito</option>
-		    			<option value="Débito">Débito</option>  			
+		    			<option value="Débito">Débito</option>
 		    		</select>
 		    	</div>
 	    	</div>
-    		
+
     	</div>
 
   </div>
@@ -259,40 +259,40 @@ if(!$results){?>
   </div>
   <div class="modal-body">
   		<div class="span12 alert alert-info" style="margin-left: 0"> Obrigatório o preenchimento dos campos com asterisco.</div>
-    	<div class="span12" style="margin-left: 0"> 
+    	<div class="span12" style="margin-left: 0">
     		<label for="descricao">Descrição</label>
     		<input class="span12" id="descricao" type="text" name="descricao"  />
     		<input id="urlAtual" type="hidden" name="urlAtual" value="<?php echo current_url() ?>"  />
-    	</div>	
-    	<div class="span12" style="margin-left: 0"> 
-    		<div class="span12" style="margin-left: 0"> 
+    	</div>
+    	<div class="span12" style="margin-left: 0">
+    		<div class="span12" style="margin-left: 0">
     			<label for="fornecedor">Fornecedor / Empresa*</label>
     			<input class="span12" id="fornecedor" type="text" name="fornecedor"  />
     		</div>
-    		
-    		
+
+
     	</div>
-    	<div class="span12" style="margin-left: 0"> 
-    		<div class="span4" style="margin-left: 0">  
+    	<div class="span12" style="margin-left: 0">
+    		<div class="span4" style="margin-left: 0">
     			<label for="valor">Valor*</label>
-    			<input type="hidden"  name="tipo" value="despesa" />	
+    			<input type="hidden"  name="tipo" value="despesa" />
     			<input class="span12 money"  type="text" name="valor"  />
     		</div>
 	    	<div class="span4" >
 	    		<label for="vencimento">Data Vencimento*</label>
 	    		<input class="span12 datepicker"  type="text" name="vencimento"  />
 	    	</div>
-	    	
+
     	</div>
-    	<div class="span12" style="margin-left: 0"> 
+    	<div class="span12" style="margin-left: 0">
     		<div class="span4" style="margin-left: 0">
     			<label for="pago">Foi Pago?</label>
-	    		&nbsp &nbsp &nbsp &nbsp<input  id="pago" type="checkbox" name="pago" value="1" />	
+	    		&nbsp &nbsp &nbsp &nbsp<input  id="pago" type="checkbox" name="pago" value="1" />
     		</div>
     		<div id="divPagamento" class="span8" style=" display: none">
 	    		<div class="span6">
 	    			<label for="pagamento">Data Pagamento</label>
-		    		<input class="span12 datepicker" id="pagamento" type="text" name="pagamento" />	
+		    		<input class="span12 datepicker" id="pagamento" type="text" name="pagamento" />
 	    		</div>
 
 	    		<div class="span6">
@@ -303,11 +303,11 @@ if(!$results){?>
 		    			<option value="Cheque">Cheque</option>
 		    			<option value="Boleto">Boleto</option>
 		    			<option value="Depósito">Depósito</option>
-		    			<option value="Débito">Débito</option>  			
+		    			<option value="Débito">Débito</option>
 		    		</select>
 		    	</div>
 	    	</div>
-    		
+
     	</div>
 
   </div>
@@ -329,24 +329,24 @@ if(!$results){?>
   </div>
   <div class="modal-body">
       <div class="span12 alert alert-info" style="margin-left: 0"> Obrigatório o preenchimento dos campos com asterisco.</div>
-      <div class="span12" style="margin-left: 0"> 
+      <div class="span12" style="margin-left: 0">
         <label for="descricao">Descrição</label>
         <input class="span12" id="descricaoEditar" type="text" name="descricao"  />
         <input id="urlAtualEditar" type="hidden" name="urlAtual" value=""  />
-      </div>  
-      <div class="span12" style="margin-left: 0"> 
-        <div class="span12" style="margin-left: 0"> 
+      </div>
+      <div class="span12" style="margin-left: 0">
+        <div class="span12" style="margin-left: 0">
           <label for="fornecedor">Fornecedor / Empresa*</label>
           <input class="span12" id="fornecedorEditar" type="text" name="fornecedor"  />
         </div>
-        
-        
+
+
       </div>
-      <div class="span12" style="margin-left: 0"> 
-        <div class="span4" style="margin-left: 0">  
+      <div class="span12" style="margin-left: 0">
+        <div class="span4" style="margin-left: 0">
           <label for="valor">Valor*</label>
-          <input type="hidden"  name="tipo" value="despesa" />  
-          <input type="hidden"  id="idEditar" name="id" value="" /> 
+          <input type="hidden"  name="tipo" value="despesa" />
+          <input type="hidden"  id="idEditar" name="id" value="" />
           <input class="span12 money"  type="text" name="valor" id="valorEditar" />
         </div>
         <div class="span4" >
@@ -360,17 +360,17 @@ if(!$results){?>
             <option value="despesa">Despesa</option>
           </select>
         </div>
-        
+
       </div>
-      <div class="span12" style="margin-left: 0"> 
+      <div class="span12" style="margin-left: 0">
         <div class="span4" style="margin-left: 0">
           <label for="pago">Foi Pago?</label>
-          &nbsp &nbsp &nbsp &nbsp<input  id="pagoEditar" type="checkbox" name="pago" value="1" /> 
+          &nbsp &nbsp &nbsp &nbsp<input  id="pagoEditar" type="checkbox" name="pago" value="1" />
         </div>
         <div id="divPagamentoEditar" class="span8" style=" display: none">
           <div class="span6">
             <label for="pagamento">Data Pagamento</label>
-            <input class="span12 datepicker" id="pagamentoEditar" type="text" name="pagamento" />  
+            <input class="span12 datepicker" id="pagamentoEditar" type="text" name="pagamento" />
           </div>
 
           <div class="span6">
@@ -381,11 +381,11 @@ if(!$results){?>
               <option value="Cheque">Cheque</option>
               <option value="Boleto">Boleto</option>
               <option value="Depósito">Depósito</option>
-              <option value="Débito">Débito</option>        
+              <option value="Débito">Débito</option>
             </select>
           </div>
         </div>
-        
+
       </div>
 
   </div>
@@ -466,7 +466,7 @@ if(!$results){?>
              cliente: {required:true},
              valor: {required:true},
              vencimento: {required:true}
-      
+
           },
           messages:{
              descricao: {required: 'Campo Requerido.'},
@@ -484,7 +484,7 @@ if(!$results){?>
              fornecedor: {required:true},
              valor: {required:true},
              vencimento: {required:true}
-      
+
           },
           messages:{
              descricao: {required: 'Campo Requerido.'},
@@ -493,7 +493,7 @@ if(!$results){?>
              vencimento: {required: 'Campo Requerido.'}
           }
        	});
-    
+
 
     $(document).on('click', '.excluir', function(event) {
       $("#idExcluir").val($(this).attr('idLancamento'));
@@ -516,16 +516,16 @@ if(!$results){?>
         $("#divPagamentoEditar").show();
       }
       else{
-        $("#pagoEditar").attr('checked', false); 
+        $("#pagoEditar").attr('checked', false);
         $("#divPagamentoEditar").hide();
       }
-      
+
 
     });
 
     $(document).on('click', '#btnExcluir', function(event) {
         var id = $("#idExcluir").val();
-    
+
         $.ajax({
           type: "POST",
           url: "<?php echo base_url();?>index.php/financeiro/excluirLancamento",
@@ -537,7 +537,7 @@ if(!$results){?>
                 $("#btnCancelExcluir").trigger('click');
                 $("#divLancamentos").html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
                 $("#divLancamentos").load( $(location).attr('href')+" #divLancamentos" );
-                
+
             }
             else{
                 $("#btnCancelExcluir").trigger('click');
@@ -547,11 +547,9 @@ if(!$results){?>
         });
         return false;
     });
- 
+
     $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
 
 	});
 
 </script>
-
-
