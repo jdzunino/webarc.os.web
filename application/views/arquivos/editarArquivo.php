@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>assets/js/validate.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>application/views/arquivos/arquivoControle.js"></script>
 
 <div class="row-fluid" style="margin-top:0">
     <div class="span12">
@@ -13,8 +15,8 @@
             <div class="widget-content nopadding">
                 <?php echo $custom_error; ?>
                 <form action="<?php echo current_url(); ?>" id="formArquivo" method="post" class="form-horizontal" >
-                    
-                
+
+
                     <div class="control-group">
                         <label for="nome" class="control-label">Nome do Arquivo*</label>
                         <div class="controls">
@@ -30,7 +32,7 @@
                             <textarea rows="3" cols="30" name="descricao" id="descricao"><?php echo $result->descricao; ?></textarea>
                         </div>
                     </div>
-                    
+
                     <div class="control-group">
                         <label for="descricao" class="control-label">Data</label>
                         <div class="controls">
@@ -51,37 +53,3 @@
         </div>
     </div>
 </div>
-
-<script src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
-<script type="text/javascript">
-      $(document).ready(function(){
-         
-           $('#formArquivo').validate({
-            rules :{
-                  nome:{ required: true}
-            },
-            messages:{
-                  nome :{ required: 'Campo Requerido.'}
-            },
-
-            errorClass: "help-inline",
-            errorElement: "span",
-            highlight:function(element, errorClass, validClass) {
-                $(element).parents('.control-group').addClass('error');
-                $(element).parents('.control-group').removeClass('success');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).parents('.control-group').removeClass('error');
-                $(element).parents('.control-group').addClass('success');
-            }
-           }); 
-
-
-           $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
-      });
-</script>
-
-
-
-
-                                    

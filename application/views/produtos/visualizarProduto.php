@@ -35,11 +35,10 @@
                             <td style="text-align: right"><strong>Estoque Mínimo</strong></td>
                             <td><?php echo $result->estoqueMinimo; ?></td>
                         </tr>
-                  
+
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-

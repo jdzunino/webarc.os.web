@@ -1,3 +1,7 @@
+<script src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
+<script src="<?php echo base_url();?>assets/js/maskmoney.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>application/views/produtos/produtoControle.js"></script>
+
 <div class="row-fluid" style="margin-top:0">
     <div class="span12">
         <div class="widget-box">
@@ -61,48 +65,10 @@
                         </div>
                     </div>
 
-                    
+
                 </form>
             </div>
 
          </div>
      </div>
 </div>
-
-<script src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
-<script src="<?php echo base_url();?>assets/js/maskmoney.js"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".money").maskMoney();
-
-        $('#formProduto').validate({
-            rules :{
-                  descricao: { required: true},
-                  unidade: { required: true},
-                  precoCompra: { required: true},
-                  precoVenda: { required: true},
-                  estoque: { required: true}
-            },
-            messages:{
-                  descricao: { required: 'Campo Requerido.'},
-                  unidade: {required: 'Campo Requerido.'},
-                  precoCompra: { required: 'Campo Requerido.'},
-                  precoVenda: { required: 'Campo Requerido.'},
-                  estoque: { required: 'Campo Requerido.'}
-            },
-
-            errorClass: "help-inline",
-            errorElement: "span",
-            highlight:function(element, errorClass, validClass) {
-                $(element).parents('.control-group').addClass('error');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).parents('.control-group').removeClass('error');
-                $(element).parents('.control-group').addClass('success');
-            }
-           });
-    });
-</script>
-
-
-
