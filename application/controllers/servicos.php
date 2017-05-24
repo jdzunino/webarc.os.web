@@ -151,4 +151,13 @@ class Servicos extends CI_Controller {
         $this->session->set_flashdata('success','Serviço excluido com sucesso!');
         redirect(base_url().'index.php/servicos/gerenciar/');
     }
+
+    public function autoCompleteServico(){
+
+        if (isset($_GET['term'])){
+            $q = strtolower($_GET['term']);
+            $this->os_model->autoCompleteServico($q);
+        }
+
+    }
 }

@@ -71,6 +71,10 @@
         <li class="<?php if(isset($menuVendas)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/vendas"><i class="icon icon-shopping-cart"></i> <span>Vendas</span></a></li>
     <?php } ?>
 
+    <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vVenda')){ ?>
+        <li class="<?php if(isset($menuCompras)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/compras"><i class="icon icon-shopping-cart"></i> <span>Compras</span></a></li>
+    <?php } ?>
+
     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vArquivo')){ ?>
         <li class="<?php if(isset($menuArquivos)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/arquivos"><i class="icon icon-hdd"></i> <span>Arquivos</span></a></li>
     <?php } ?>

@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   $("#cidade").autocomplete({
-    source: window.document.referrer+"/autoCompleteCidade",
+    source: window.document.referrer+"/../cidades/autoCompleteCidade",
     minLength: 1,
     select: function( event, ui ) {
       $("#cidade_id").val(ui.item.id);
@@ -9,6 +9,7 @@ $(document).ready(function(){
   });
 
   $("#cep").focusout(function(){
+    //Verifica se o CEP foi informado para não chamar o serviço sem CEP informado
     if(!$("#cep").val()){
       return;
     }

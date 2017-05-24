@@ -5,7 +5,7 @@ class Clientes extends CI_Controller {
     function __construct() {
         parent::__construct();
             if((!$this->session->userdata('session_id')) || (!$this->session->userdata('logado'))){
-            redirect('controle/login');
+              redirect('controle/login');
             }
             $this->load->helper(array('codegen_helper'));
             $this->load->model('clientes_model','',TRUE);
@@ -239,12 +239,11 @@ class Clientes extends CI_Controller {
             redirect(base_url().'index.php/clientes/gerenciar/');
     }
 
-    public function autoCompleteCidade(){
+    public function autoCompleteCliente(){
 
         if (isset($_GET['term'])){
-          $q = $_GET['term'];
-          $estado = null;
-          $this->cidades_model->autoCompleteCidade($q, $estado);
+            $q = strtolower($_GET['term']);
+            $this->clientes_model->autoCompleteCliente($q);
         }
 
     }

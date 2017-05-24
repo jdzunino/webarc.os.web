@@ -11,7 +11,7 @@
                 <h5>Cadastro de OS</h5>
             </div>
             <div class="widget-content nopadding">
-                
+
 
                 <div class="span12" id="divProdutosServicos" style=" margin-left: 0">
                     <ul class="nav nav-tabs">
@@ -101,11 +101,11 @@
 
                 </div>
 
-                
+
 .
-             
+
         </div>
-        
+
     </div>
 </div>
 </div>
@@ -116,18 +116,18 @@
 $(document).ready(function(){
 
       $("#cliente").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/os/autoCompleteCliente",
+            source: "<?php echo base_url(); ?>index.php/clientes/autoCompleteCliente",
             minLength: 1,
             select: function( event, ui ) {
 
                  $("#clientes_id").val(ui.item.id);
-                
+
 
             }
       });
 
       $("#tecnico").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/os/autoCompleteUsuario",
+            source: "<?php echo base_url(); ?>index.php/usuarios/autoCompleteUsuario",
             minLength: 1,
             select: function( event, ui ) {
 
@@ -137,8 +137,8 @@ $(document).ready(function(){
             }
       });
 
-      
-      
+
+
 
       $("#formOs").validate({
           rules:{
@@ -164,8 +164,7 @@ $(document).ready(function(){
        });
 
     $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
-   
+
 });
 
 </script>
-

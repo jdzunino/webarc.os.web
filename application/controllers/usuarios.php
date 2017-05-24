@@ -218,4 +218,12 @@ class Usuarios extends CI_Controller {
             $this->usuarios_model->delete('usuarios','idUsuarios',$ID);
             redirect(base_url().'index.php/usuarios/gerenciar/');
     }
+
+    public function autoCompleteUsuario(){
+        if (isset($_GET['term'])){
+            $q = strtolower($_GET['term']);
+            $this->usuarios_model->autoCompleteUsuario($q);
+        }
+
+    }
 }

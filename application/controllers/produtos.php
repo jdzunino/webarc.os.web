@@ -196,4 +196,13 @@ class Produtos extends CI_Controller {
         $this->session->set_flashdata('success','Produto excluido com sucesso!');
         redirect(base_url().'index.php/produtos/gerenciar/');
     }
+
+    public function autoCompleteProduto(){
+
+        if (isset($_GET['term'])){
+            $q = strtolower($_GET['term']);
+            $this->produtos_model->autoCompleteProduto($q);
+        }
+
+    }
 }
