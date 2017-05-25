@@ -49,6 +49,17 @@
                           </div>
                       </div>
 
+                      <div class="control-group">
+                          <label for="numero" class="control-label">Tipo<span class="required">*</span></label>
+                          <div class="controls">
+                            <select name="tipoPessoa" id="tipoPessoa">
+                              <option value="1">Cliente</option>
+                              <option value="2">Fornecedor</option>
+                              <option value="3">Cliente/Fornecedor</option>
+                            </select>
+                          </div>
+                      </div>
+
                       <div class="control-group" class="control-label">
                           <label for="cep" class="control-label">CEP<span class="required">*</span></label>
                           <div class="controls">

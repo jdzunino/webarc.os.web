@@ -50,6 +50,17 @@
                         </div>
                     </div>
 
+                    <div class="control-group">
+                        <label for="numero" class="control-label">Tipo<span class="required">*</span></label>
+                        <div class="controls">
+                          <select name="tipoPessoa" id="tipoPessoa">
+                            <option value="1" <?php echo  $result->tipoPessoa == "1" ? "selected": " " ; ?> >Cliente</option>
+                            <option value="2" <?php echo  $result->tipoPessoa == "2" ? "selected": " " ; ?> >Fornecedor</option>
+                            <option value="3" <?php echo  $result->tipoPessoa == "3" ? "selected": " " ; ?> >Cliente/Fornecedor</option>
+                          </select>
+                        </div>
+                    </div>
+
                     <div class="control-group" class="control-label">
                         <label for="cep" class="control-label">CEP<span class="required">*</span></label>
                         <div class="controls">
