@@ -76,7 +76,7 @@ class Pessoas extends CI_Controller {
                 'nomeCliente' => set_value('nomeCliente'),
                 'documento' => set_value('documento'),
                 'telefone' => set_value('telefone'),
-                'tipoPessoa' => set_value('tipoPessoa'),
+                'tipoPessoa' =>  $this->input->post('tipoPessoa'),
                 'celular' => set_value('celular'),
                 'email' => set_value('email'),
                 'rua' => set_value('rua'),

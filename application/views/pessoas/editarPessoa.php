@@ -51,7 +51,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="numero" class="control-label">Tipo<span class="required">*</span></label>
+                        <label for="tipoPessoa" class="control-label">Tipo<span class="required">*</span></label>
                         <div class="controls">
                           <select name="tipoPessoa" id="tipoPessoa">
                             <option value="1" <?php echo  $result->tipoPessoa == "1" ? "selected": " " ; ?> >Cliente</option>
