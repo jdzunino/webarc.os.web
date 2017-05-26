@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
-<script type="text/javascript" src="<?php echo base_url()?>application/views/clientes/clienteControle.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>application/views/pessoas/clienteControle.js"></script>
 <div class="row-fluid" style="margin-top:0">
     <div class="span12">
         <div class="widget-box">
@@ -9,7 +9,7 @@
                 <span class="icon">
                     <i class="icon-user"></i>
                 </span>
-                <h5>Editar Cliente</h5>
+                <h5>Editar Pessoa</h5>
             </div>
             <div class="widget-content nopadding">
                 <?php if ($custom_error != '') {
@@ -101,7 +101,7 @@
                         <div class="span12">
                             <div class="span6 offset3">
                                 <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Alterar</button>
-                                <a href="<?php echo base_url() ?>index.php/clientes" id="" class="btn"><i class="icon-arrow-left"></i> Voltar</a>
+                                <a href="<?php echo base_url() ?>index.php/pessoas" id="" class="btn"><i class="icon-arrow-left"></i> Voltar</a>
                             </div>
                         </div>
                     </div>

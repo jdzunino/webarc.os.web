@@ -38,7 +38,7 @@
                                             <input id="clientes_id" class="span12" type="hidden" name="clientes_id" value=""  />
                                         </div>
                                         <div class="span5">
-                                            <label for="tecnico">Vendedor<span class="required">*</span></label>
+                                            <label for="tecnico">Usuário Vendedor<span class="required">*</span></label>
                                             <input id="tecnico" class="span12" type="text" name="tecnico" value=""  />
                                             <input id="usuarios_id" class="span12" type="hidden" name="usuarios_id" value=""  />
                                         </div>
@@ -75,7 +75,7 @@
 $(document).ready(function(){
 
       $("#cliente").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/clientes/autoCompleteCliente",
+            source: "<?php echo base_url(); ?>index.php/pessoas/autoCompleteCliente",
             minLength: 1,
             select: function( event, ui ) {
 

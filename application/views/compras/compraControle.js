@@ -33,7 +33,7 @@ $(document).ready(function(){
 
 
       $("#fornecedor").autocomplete({
-            source: urlHost + "/index.php/clientes/autoCompleteCliente",
+            source: urlHost + "/index.php/pessoas/autoCompleteFornecedor",
             minLength: 2,
             select: function( event, ui ) {
                  $("#fornecedor_id").val(ui.item.id);

@@ -116,7 +116,7 @@
 $(document).ready(function(){
 
       $("#cliente").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/clientes/autoCompleteCliente",
+            source: "<?php echo base_url(); ?>index.php/pessoas/autoCompleteCliente",
             minLength: 1,
             select: function( event, ui ) {
 

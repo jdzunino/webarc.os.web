@@ -42,7 +42,7 @@
                                             <input id="valorTotal" type="hidden" name="valorTotal" value=""  />
                                         </div>
                                         <div class="span5">
-                                            <label for="tecnico">Vendedor<span class="required">*</span></label>
+                                            <label for="tecnico">Usuário Comprador<span class="required">*</span></label>
                                             <input id="tecnico" class="span12" type="text" name="tecnico" value="<?php echo $result->nome ?>"  />
                                             <input id="usuarios_id" class="span12" type="hidden" name="usuarios_id" value="<?php echo $result->usuarios_id ?>"  />
                                         </div>

@@ -1,5 +1,5 @@
 <?php
-class Clientes_model extends CI_Model {
+class Pessoas_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -72,9 +72,11 @@ class Clientes_model extends CI_Model {
         return $this->db->get('os')->result();
     }
 
-    public function autoCompleteCliente($q){
-
+    public function autoCompletePessoa($q, $tipoPessoa = null){
         $this->db->select('*');
+        if($tipoPessoa){
+          $this->db->where('tipoPessoa',$tipoPessoa);
+        }
         $this->db->limit(10);
         $this->db->like('nomeCliente', $q);
         $query = $this->db->get('clientes');

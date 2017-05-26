@@ -44,7 +44,7 @@
                                     <td style="width: 50%; padding-left: 0">
                                         <ul>
                                             <li>
-                                                <span><h5>Cliente</h5>
+                                                <span><h5>Fornecedor</h5>
                                                 <span><?php echo $result->nomeCliente?></span><br/>
                                                 <span><?php echo $result->rua?>, <?php echo $result->numero?>, <?php echo $result->bairro?></span><br/>
                                                 <span><?php echo $cidade->sigla?> | <?php echo $cidade->nome ?></span>
@@ -54,7 +54,7 @@
                                     <td style="width: 50%; padding-left: 0">
                                         <ul>
                                             <li>
-                                                <span><h5>Vendedor</h5></span>
+                                                <span><h5>Usuário Comprador</h5></span>
                                                 <span><?php echo $result->nome?></span> <br/>
                                                 <span>Telefone: <?php echo $result->telefone?></span><br/>
                                                 <span>Email: <?php echo $result->email?></span>

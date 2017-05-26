@@ -39,7 +39,7 @@
                                             <input id="fornecedor_id" class="span12" type="hidden" name="fornecedor_id" value=""  />
                                         </div>
                                         <div class="span5">
-                                            <label for="tecnico">Comprador<span class="required">*</span></label>
+                                            <label for="tecnico">Usuário Comprador<span class="required">*</span></label>
                                             <input id="tecnico" class="span12" type="text" name="tecnico" value=""  />
                                             <input id="usuarios_id" class="span12" type="hidden" name="usuarios_id" value=""  />
                                         </div>
