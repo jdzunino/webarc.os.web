@@ -3,42 +3,42 @@ class Relatorios_model extends CI_Model {
 
 
     /**
-     * author: Ramon Silva 
+     * author: Ramon Silva
      * email: silva018-mg@yahoo.com.br
-     * 
+     *
      */
-    
+
     function __construct() {
         parent::__construct();
     }
 
-    
+
     function get($table,$fields,$where='',$perpage=0,$start=0,$one=false,$array='array'){
-        
+
         $this->db->select($fields);
         $this->db->from($table);
         $this->db->limit($perpage,$start);
         if($where){
             $this->db->where($where);
         }
-        
+
         $query = $this->db->get();
-        
+
         $result =  !$one  ? $query->result() : $query->row();
         return $result;
     }
 
-    
+
     function add($table,$data){
-        $this->db->insert($table, $data);         
+        $this->db->insert($table, $data);
         if ($this->db->affected_rows() == '1')
 		{
 			return TRUE;
 		}
-		
-		return FALSE;       
+
+		return FALSE;
     }
-    
+
     function edit($table,$data,$fieldID,$ID){
         $this->db->where($fieldID,$ID);
         $this->db->update($table, $data);
@@ -47,10 +47,10 @@ class Relatorios_model extends CI_Model {
 		{
 			return TRUE;
 		}
-		
-		return FALSE;       
+
+		return FALSE;
     }
-    
+
     function delete($table,$fieldID,$ID){
         $this->db->where($fieldID,$ID);
         $this->db->delete($table);
@@ -58,25 +58,29 @@ class Relatorios_model extends CI_Model {
 		{
 			return TRUE;
 		}
-		
-		return FALSE;        
+
+		return FALSE;
     }
 
     function count($table) {
         return $this->db->count_all($table);
     }
-    
-    public function clientesCustom($dataInicial = null,$dataFinal = null){
-        
-        if($dataInicial == null || $dataFinal == null){
-            $dataInicial = date('Y-m-d');
-            $dataFinal = date('Y-m-d');
+
+    public function pessoasCustom($dataInicial = null, $dataFinal = null){
+        $whereData = "";
+        if($dataInicial != null  && $dataFinal != null){
+            $whereData = "WHERE dataCadastro BETWEEN ".$this->db->escape($dataInicial)." AND ".$this->db->escape($dataFinal);
+        } else if($dataInicial != null){
+            $whereData = "WHERE dataCadastro >= ".$this->db->escape($dataInicial);
+        } else if($dataFinal != null){
+            $whereData = "WHERE dataCadastro <= ".$this->db->escape($dataFinal);
         }
-        $query = "SELECT * FROM clientes WHERE dataCadastro BETWEEN ? AND ?";
+
+        $query = "SELECT * FROM clientes $whereData";
         return $this->db->query($query, array($dataInicial,$dataFinal))->result();
     }
 
-    public function clientesRapid(){
+    public function pessoasRapid(){
         $this->db->order_by('nomeCliente','asc');
         return $this->db->get('clientes')->result();
     }
@@ -168,7 +172,7 @@ class Relatorios_model extends CI_Model {
 
 
     public function financeiroRapid(){
-        
+
         $dataInicial = date('Y-m-01');
         $dataFinal = date("Y-m-t");
         $query = "SELECT * FROM lancamentos WHERE data_vencimento BETWEEN ? and ? ORDER BY tipo";
@@ -177,7 +181,7 @@ class Relatorios_model extends CI_Model {
 
 
     public function financeiroCustom($dataInicial, $dataFinal, $tipo = null, $situacao = null){
-        
+
         $whereTipo = "";
         $whereSituacao = "";
 
@@ -185,7 +189,7 @@ class Relatorios_model extends CI_Model {
             $dataInicial = date('Y-m-01');
         }
         if($dataFinal == null){
-            $dataFinal = date("Y-m-t");  
+            $dataFinal = date("Y-m-t");
         }
 
         if($tipo == 'receita'){
@@ -199,9 +203,9 @@ class Relatorios_model extends CI_Model {
         }
         if($situacao == 'pago'){
             $whereSituacao = "AND baixado = 1";
-        } 
-        
-        
+        }
+
+
         $query = "SELECT * FROM lancamentos WHERE data_vencimento BETWEEN ? and ? $whereTipo $whereSituacao";
         return $this->db->query($query, array($dataInicial,$dataFinal))->result();
     }
@@ -230,7 +234,7 @@ class Relatorios_model extends CI_Model {
         if($responsavel != null){
             $whereResponsavel = "AND usuarios_id = ".$this->db->escape($responsavel);
         }
-       
+
         $query = "SELECT vendas.*,clientes.nomeCliente,usuarios.nome FROM vendas LEFT JOIN clientes ON vendas.clientes_id = clientes.idClientes LEFT JOIN usuarios ON vendas.usuarios_id = usuarios.idUsuarios WHERE idVendas != 0 $whereData $whereCliente $whereResponsavel";
         return $this->db->query($query)->result();
     }

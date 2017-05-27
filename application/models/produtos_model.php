@@ -64,4 +64,17 @@ class Produtos_model extends CI_Model {
 	function count($table){
 		return $this->db->count_all($table);
 	}
+
+  public function autoCompleteProduto($q){
+      $this->db->select('*');
+      $this->db->limit(10);
+      $this->db->like('descricao', $q);
+      $query = $this->db->get('produtos');
+      if($query->num_rows > 0){
+          foreach ($query->result_array() as $row){
+              $row_set[] = array('label'=>$row['descricao'].' | Preço Venda: R$ '.$row['precoVenda'].' | Estoque: '.$row['estoque'],'estoque'=>$row['estoque'],'id'=>$row['idProdutos'],'precoCompra'=>$row['precoCompra'],'precoVenda'=>$row['precoVenda']);
+          }
+          echo json_encode($row_set);
+      }
+  }
 }

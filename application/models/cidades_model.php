@@ -18,9 +18,9 @@ class Cidades_model extends CI_Model {
         return $query->result_array();
     }
 
-    public function autoCompleteCidade($q, $estado){
+    public function autoCompleteCidade($q){
 
-        $result = $this->get($q, $estado);
+        $result = $this->get($q);
             foreach ($result as $row){
                 $row_set[] = array('label'=>$row['sigla'].' | '.$row['nome'], 'id'=>$row['idCidade'], 'estado_id'=>$row['estado_id']);
             }

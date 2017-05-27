@@ -64,4 +64,18 @@ class Servicos_model extends CI_Model {
 	function count($table){
 		return $this->db->count_all($table);
 	}
+
+  public function autoCompleteServico($q){
+
+      $this->db->select('*');
+      $this->db->limit(10);
+      $this->db->like('nome', $q);
+      $query = $this->db->get('servicos');
+      if($query->num_rows > 0){
+          foreach ($query->result_array() as $row){
+              $row_set[] = array('label'=>$row['nome'].' | Preço: R$ '.$row['preco'],'id'=>$row['idServicos'],'preco'=>$row['preco']);
+          }
+          echo json_encode($row_set);
+      }
+  }
 }

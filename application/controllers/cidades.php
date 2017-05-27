@@ -20,11 +20,9 @@ class Cidades extends CI_Controller {
   }
 
     public function autoCompleteCidade(){
-
         if (isset($_GET['term'])){
-          $estado = $_GET['estado'];
-          echo 'Estado '.$estado;
-          $this->cidades_model->autoCompleteCidade($_GET['term'], $estado);
+          $q = $_GET['term'];
+          $this->cidades_model->autoCompleteCidade($q);
         }
 
     }

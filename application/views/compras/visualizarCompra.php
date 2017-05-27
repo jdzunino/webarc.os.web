@@ -6,10 +6,10 @@
                 <span class="icon">
                     <i class="icon-tags"></i>
                 </span>
-                <h5>Venda</h5>
+                <h5>Compra</h5>
                 <div class="buttons">
                     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'eVenda')){
-                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/vendas/editar/'.$result->idVendas.'"><i class="icon-pencil icon-white"></i> Editar</a>';
+                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/compras/editar/'.$result->idCompras.'"><i class="icon-pencil icon-white"></i> Editar</a>';
                     } ?>
 
                     <a id="imprimir" title="Imprimir" class="btn btn-mini btn-inverse" href=""><i class="icon-print icon-white"></i> Imprimir</a>
@@ -31,7 +31,7 @@
                                 <tr>
                                     <td style="width: 25%"><img src=" <?php echo $emitente[0]->url_logo; ?> "></td>
                                     <td> <span style="font-size: 20px; "> <?php echo $emitente[0]->nome; ?></span> </br><span><?php echo $emitente[0]->cnpj; ?> </br> <?php echo $emitente[0]->rua.', nº:'.$emitente[0]->numero.', '.$emitente[0]->bairro.' - '.$emitente[0]->cidade.' - '.$emitente[0]->uf; ?> </span> </br> <span> E-mail: <?php echo $emitente[0]->email.' - Fone: '.$emitente[0]->telefone; ?></span></td>
-                                    <td style="width: 18%; text-align: center">#Venda: <span ><?php echo $result->idVendas?></span></br> </br> <span>Emissão: <?php echo date('d/m/Y');?></span></td>
+                                    <td style="width: 18%; text-align: center">#Compra: <span ><?php echo $result->idCompras?></span></br> </br> <span>Emissão: <?php echo date('d/m/Y');?></span></td>
                                 </tr>
 
                                 <?php } ?>
@@ -44,7 +44,7 @@
                                     <td style="width: 50%; padding-left: 0">
                                         <ul>
                                             <li>
-                                                <span><h5>Cliente</h5>
+                                                <span><h5>Fornecedor</h5>
                                                 <span><?php echo $result->nomeCliente?></span><br/>
                                                 <span><?php echo $result->rua?>, <?php echo $result->numero?>, <?php echo $result->bairro?></span><br/>
                                                 <span><?php echo $cidade->sigla?> | <?php echo $cidade->nome ?></span>
@@ -54,7 +54,7 @@
                                     <td style="width: 50%; padding-left: 0">
                                         <ul>
                                             <li>
-                                                <span><h5>Usuário Vendedor</h5></span>
+                                                <span><h5>Usuário Comprador</h5></span>
                                                 <span><?php echo $result->nome?></span> <br/>
                                                 <span>Telefone: <?php echo $result->telefone?></span><br/>
                                                 <span>Email: <?php echo $result->email?></span>
@@ -71,7 +71,7 @@
 
 
                         <?php if($produtos != null){?>
-
+                        <h5>Produtos</h5>
                         <table class="table table-bordered table-condensed" id="tblProdutos">
                                     <thead>
                                         <tr>

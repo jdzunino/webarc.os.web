@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Vendas_model extends CI_Model {
+class Compras_model extends CI_Model {
 
 	function __construct() {
         parent::__construct();
@@ -9,11 +9,12 @@ class Vendas_model extends CI_Model {
 
     function get($table,$fields,$where='',$perpage=0,$start=0,$one=false,$array='array'){
 
+				//TODO https://trello.com/c/wc7yzlnY/60-cadastro-de-fornecedor Ajustar chave estrangeira para Fornecedor
         $this->db->select($fields.', clientes.nomeCliente, clientes.idClientes');
         $this->db->from($table);
         $this->db->limit($perpage,$start);
-        $this->db->join('clientes', 'clientes.idClientes = '.$table.'.clientes_id');
-        $this->db->order_by('idVendas','desc');
+        $this->db->join('clientes', 'clientes.idClientes = '.$table.'.fornecedor_id');
+        $this->db->order_by('idCompras','desc');
         if($where){
             $this->db->where($where);
         }
@@ -25,20 +26,21 @@ class Vendas_model extends CI_Model {
     }
 
     function getById($id){
-        $this->db->select('vendas.*, clientes.*, usuarios.telefone, usuarios.email,usuarios.nome');
-        $this->db->from('vendas');
-        $this->db->join('clientes','clientes.idClientes = vendas.clientes_id');
-        $this->db->join('usuarios','usuarios.idUsuarios = vendas.usuarios_id');
-        $this->db->where('vendas.idVendas',$id);
+			  //TODO https://trello.com/c/wc7yzlnY/60-cadastro-de-fornecedor Ajustar chave estrangeira para Fornecedor
+        $this->db->select('compras.*, clientes.*, usuarios.telefone, usuarios.email,usuarios.nome');
+        $this->db->from('compras');
+        $this->db->join('clientes','clientes.idClientes = compras.fornecedor_id');
+        $this->db->join('usuarios','usuarios.idUsuarios = compras.usuarios_id');
+        $this->db->where('compras.idCompras',$id);
         $this->db->limit(1);
         return $this->db->get()->row();
     }
 
     public function getProdutos($id = null){
-        $this->db->select('itens_de_vendas.*, produtos.*');
-        $this->db->from('itens_de_vendas');
-        $this->db->join('produtos','produtos.idProdutos = itens_de_vendas.produtos_id');
-        $this->db->where('vendas_id',$id);
+        $this->db->select('itens_de_compras.*, produtos.*');
+        $this->db->from('itens_de_compras');
+        $this->db->join('produtos','produtos.idProdutos = itens_de_compras.produtos_id');
+        $this->db->where('compras_id',$id);
         return $this->db->get()->result();
     }
 

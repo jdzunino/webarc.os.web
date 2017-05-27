@@ -1,5 +1,5 @@
 <?php
-class Clientes_model extends CI_Model {
+class Pessoas_model extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -70,6 +70,22 @@ class Clientes_model extends CI_Model {
         $this->db->order_by('idOs','desc');
         $this->db->limit(10);
         return $this->db->get('os')->result();
+    }
+
+    public function autoCompletePessoa($q, $tipoPessoa = null){
+        $this->db->select('*');
+        if($tipoPessoa){
+          $this->db->where('tipoPessoa',$tipoPessoa);
+        }
+        $this->db->limit(10);
+        $this->db->like('nomeCliente', $q);
+        $query = $this->db->get('clientes');
+        if($query->num_rows > 0){
+            foreach ($query->result_array() as $row){
+                $row_set[] = array('label'=>$row['nomeCliente'].' | Telefone: '.$row['telefone'],'id'=>$row['idClientes']);
+            }
+            echo json_encode($row_set);
+        }
     }
 
 }

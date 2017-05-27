@@ -301,42 +301,6 @@ class Os extends CI_Controller {
 
     }
 
-    public function autoCompleteProduto(){
-
-        if (isset($_GET['term'])){
-            $q = strtolower($_GET['term']);
-            $this->os_model->autoCompleteProduto($q);
-        }
-
-    }
-
-    public function autoCompleteCliente(){
-
-        if (isset($_GET['term'])){
-            $q = strtolower($_GET['term']);
-            $this->os_model->autoCompleteCliente($q);
-        }
-
-    }
-
-    public function autoCompleteUsuario(){
-
-        if (isset($_GET['term'])){
-            $q = strtolower($_GET['term']);
-            $this->os_model->autoCompleteUsuario($q);
-        }
-
-    }
-
-    public function autoCompleteServico(){
-
-        if (isset($_GET['term'])){
-            $q = strtolower($_GET['term']);
-            $this->os_model->autoCompleteServico($q);
-        }
-
-    }
-
     public function adicionarProduto(){
 
 

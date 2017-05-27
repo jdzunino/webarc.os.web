@@ -1,11 +1,11 @@
 <div class="widget-box">
     <div class="widget-title">
         <ul class="nav nav-tabs">
-            <li class="active"><a data-toggle="tab" href="#tab1">Dados do Cliente</a></li>
+            <li class="active"><a data-toggle="tab" href="#tab1">Dados da Pessoa</a></li>
             <li><a data-toggle="tab" href="#tab2">Ordens de Serviço</a></li>
             <div class="buttons">
                     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'eCliente')){
-                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/clientes/editar/'.$result->idClientes.'"><i class="icon-pencil icon-white"></i> Editar</a>';
+                        echo '<a title="Icon Title" class="btn btn-mini btn-info" href="'.base_url().'index.php/pessoas/editar/'.$result->idClientes.'"><i class="icon-pencil icon-white"></i> Editar</a>';
                     } ?>
 
             </div>

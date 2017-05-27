@@ -11,7 +11,7 @@
                 <h5>Cadastro de venda</h5>
             </div>
             <div class="widget-content nopadding">
-                
+
 
                 <div class="span12" id="divProdutosServicos" style=" margin-left: 0">
                     <ul class="nav nav-tabs">
@@ -22,7 +22,7 @@
 
                             <div class="span12" id="divCadastrarOs">
                                 <?php if($custom_error == true){ ?>
-                                <div class="span12 alert alert-danger" id="divInfo" style="padding: 1%;">Dados incompletos, verifique os campos com asterisco ou se selecionou corretamente cliente e responsável.</div>
+                                <div class="span12 alert alert-danger" id="divInfo" style="padding: 1%;">Dados incompletos, verifique os campos com asterisco ou se selecionou corretamente cliente e vendedor.</div>
                                 <?php } ?>
                                 <form action="<?php echo current_url(); ?>" method="post" id="formVendas">
 
@@ -38,13 +38,13 @@
                                             <input id="clientes_id" class="span12" type="hidden" name="clientes_id" value=""  />
                                         </div>
                                         <div class="span5">
-                                            <label for="tecnico">Vendedor<span class="required">*</span></label>
+                                            <label for="tecnico">Usuário Vendedor<span class="required">*</span></label>
                                             <input id="tecnico" class="span12" type="text" name="tecnico" value=""  />
                                             <input id="usuarios_id" class="span12" type="hidden" name="usuarios_id" value=""  />
                                         </div>
-                                        
+
                                     </div>
-                              
+
                                     <div class="span12" style="padding: 1%; margin-left: 0">
                                         <div class="span6 offset3" style="text-align: center">
                                             <button class="btn btn-success" id="btnContinuar"><i class="icon-share-alt icon-white"></i> Continuar</button>
@@ -60,11 +60,11 @@
 
                 </div>
 
-                
+
 .
-             
+
         </div>
-        
+
     </div>
 </div>
 </div>
@@ -75,18 +75,18 @@
 $(document).ready(function(){
 
       $("#cliente").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/vendas/autoCompleteCliente",
+            source: "<?php echo base_url(); ?>index.php/pessoas/autoCompleteCliente",
             minLength: 1,
             select: function( event, ui ) {
 
                  $("#clientes_id").val(ui.item.id);
-                
+
 
             }
       });
 
       $("#tecnico").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/vendas/autoCompleteUsuario",
+            source: "<?php echo base_url(); ?>index.php/usuarios/autoCompleteUsuario",
             minLength: 1,
             select: function( event, ui ) {
 
@@ -96,8 +96,8 @@ $(document).ready(function(){
             }
       });
 
-      
-      
+
+
 
       $("#formVendas").validate({
           rules:{
@@ -123,8 +123,7 @@ $(document).ready(function(){
        });
 
     $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
-   
+
 });
 
 </script>
-

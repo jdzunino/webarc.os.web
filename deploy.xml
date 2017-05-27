@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<project name="WebArc" default="deploy" basedir=".">
+
+	<property name="srcDir" location="application" />
+	<property name="deployDir" location="C:\wamp64\www\webarc\application\" />
+
+	<target name="createDeployDir" description="asdasd">
+		<echo>Criando diretórios de deploy</echo>
+		<delete dir="${deployDir}" />
+		<mkdir dir="${deployDir}" />
+	</target>
+
+	<target name="deploy" depends="createDeployDir">
+		<copydir src="${srcDir}" dest="${deployDir}"></copydir>
+	</target>
+
+</project>

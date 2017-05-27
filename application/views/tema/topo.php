@@ -52,7 +52,7 @@
     <li class="<?php if(isset($menuPainel)){echo 'active';};?>"><a href="<?php echo base_url()?>"><i class="icon icon-home"></i> <span>Dashboard</span></a></li>
 
     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vCliente')){ ?>
-        <li class="<?php if(isset($menuClientes)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/clientes"><i class="icon icon-group"></i> <span>Clientes</span></a></li>
+        <li class="<?php if(isset($menuClientes)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/pessoas"><i class="icon icon-group"></i> <span>Pessoas</span></a></li>
     <?php } ?>
 
     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vProduto')){ ?>
@@ -69,6 +69,10 @@
 
     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vVenda')){ ?>
         <li class="<?php if(isset($menuVendas)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/vendas"><i class="icon icon-shopping-cart"></i> <span>Vendas</span></a></li>
+    <?php } ?>
+
+    <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vVenda')){ ?>
+        <li class="<?php if(isset($menuCompras)){echo 'active';};?>"><a href="<?php echo base_url()?>index.php/compras"><i class="icon icon-shopping-cart"></i> <span>Compras</span></a></li>
     <?php } ?>
 
     <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'vArquivo')){ ?>
@@ -91,7 +95,7 @@
           <ul>
 
             <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'rCliente')){ ?>
-                <li><a href="<?php echo base_url()?>index.php/relatorios/clientes">Clientes</a></li>
+                <li><a href="<?php echo base_url()?>index.php/relatorios/pessoas">Pessoas</a></li>
             <?php } ?>
             <?php if($this->permission->checkPermission($this->session->userdata('permissao'),'rProduto')){ ?>
                 <li><a href="<?php echo base_url()?>index.php/relatorios/produtos">Produtos</a></li>

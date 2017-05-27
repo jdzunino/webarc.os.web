@@ -10,7 +10,7 @@
             <div class="widget-content">
                 <ul class="site-stats">
                     <li><a target="_blank" href="<?php echo base_url()?>index.php/relatorios/osRapid"><i class="icon-tags"></i> <small>Todas as OS</small></a></li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -85,9 +85,9 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $(".money").maskMoney();
-        
+
         $("#cliente").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/os/autoCompleteCliente",
+            source: "<?php echo base_url(); ?>index.php/pessoas/autoCompleteCliente",
             minLength: 2,
             select: function( event, ui ) {
 
@@ -98,7 +98,7 @@
       });
 
       $("#tecnico").autocomplete({
-            source: "<?php echo base_url(); ?>index.php/os/autoCompleteUsuario",
+            source: "<?php echo base_url(); ?>index.php/usuarios/autoCompleteUsuario",
             minLength: 2,
             select: function( event, ui ) {
 

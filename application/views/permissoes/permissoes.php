@@ -32,7 +32,7 @@ if(!$results){?>
     </div>
 
 <?php }else{
-	
+
 
 ?>
 <div class="widget-box">
@@ -72,7 +72,7 @@ if(!$results){?>
             echo '</tr>';
         }?>
         <tr>
-            
+
         </tr>
     </tbody>
 </table>
@@ -82,7 +82,7 @@ if(!$results){?>
 
 
 
- 
+
 <!-- Modal -->
 <div id="modal-excluir" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <form action="<?php echo base_url() ?>index.php/permissoes/desativar" method="post" >
@@ -107,7 +107,7 @@ $(document).ready(function(){
 
 
    $(document).on('click', 'a', function(event) {
-        
+
         var permissao = $(this).attr('permissao');
         $('#idPermissao').val(permissao);
 

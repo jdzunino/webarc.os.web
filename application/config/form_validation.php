@@ -281,4 +281,21 @@ $config = array('clientes' => array(array(
                                     'label'=>'usuarios_id',
                                     'rules'=>'trim|xss_clean|required'
                                 ))
+                ,
+                'compras' => array(array(
+
+                                    'field' => 'dataCompra',
+                                    'label' => 'Data da Compra',
+                                    'rules' => 'required|trim|xss_clean'
+                                ),
+                                array(
+                                    'field'=>'fornecedor_id',
+                                    'label'=>'forncededor',
+                                    'rules'=>'trim|xss_clean|required'
+                                ),
+                                array(
+                                    'field'=>'usuarios_id',
+                                    'label'=>'usuarios_id',
+                                    'rules'=>'trim|xss_clean|required'
+                                ))
 		);
