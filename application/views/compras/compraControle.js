@@ -25,8 +25,8 @@ $(document).ready(function(){
             select: function( event, ui ) {
                  $("#idProduto").val(ui.item.id);
                  $("#estoque").val(ui.item.estoque);
-                 $("#preco").val(ui.item.preco);
-                 $("#quantidade").focus();
+                 $("#preco").val(ui.item.precoCompra);
+                 $("#preco").focus();
             }
       });
 
@@ -95,6 +95,7 @@ $(document).ready(function(){
                     if(data.result == true){
                         $("#divProdutos" ).load(window.location+" #divProdutos" );
                         $("#quantidade").val('');
+                        $("#preco").val('');
                         $("#produto").val('').focus();
                     }
                     else{

@@ -62,62 +62,60 @@
 
                                 </form>
 
-                                <div class="span12 well" style="padding: 1%; margin-left: 0">
-
+                                <div class="span11 well" style="align: center">
+                                    <h3>Produtos</h3>
                                         <form id="formProdutos" action="<?php echo base_url(); ?>index.php/vendas/adicionarProduto" method="post">
-                                            <div class="span8">
+                                            <div class="span6">
                                                 <input type="hidden" name="idProduto" id="idProduto" />
                                                 <input type="hidden" name="idVendasProduto" id="idVendasProduto" value="<?php echo $result->idVendas?>" />
                                                 <input type="hidden" name="estoque" id="estoque" value=""/>
-                                                <input type="hidden" name="preco" id="preco" value=""/>
                                                 <label for="">Produto</label>
                                                 <input type="text" class="span12" name="produto" id="produto" placeholder="Digite o nome do produto" />
                                             </div>
-                                            <div class="span2">
-                                                <label for="">Quantidade</label>
-                                                <input type="text" placeholder="Quantidade" id="quantidade" name="quantidade" class="span12" />
+                                            <div class="span3">
+                                                <label for="">Preço Venda</label>
+                                                <input type="text" placeholder="Preço" name="preco" id="preco" value="" class="span11"/>
                                             </div>
-                                            <div class="span2">
+                                            <div class="span3">
+                                                <label for="">Quantidade</label>
+                                                <input type="text" placeholder="Quantidade" id="quantidade" name="quantidade" class="span11" />
+                                            </div>
+                                            <div class="span4">
                                                 <label for="">&nbsp</label>
-                                                <button class="btn btn-success span12" id="btnAdicionarProduto"><i class="icon-white icon-plus"></i> Adicionar</button>
+                                                <button class="btn btn-success span11" id="btnAdicionarProduto"><i class="icon-white icon-plus"></i> Adicionar</button>
                                             </div>
                                         </form>
-                                    </div>
-                                    <div class="span12" id="divProdutos" style="margin-left: 0">
-                                        <table class="table table-bordered" id="tblProdutos">
-                                            <thead>
-                                                <tr>
-                                                    <th>Produto</th>
-                                                    <th>Quantidade</th>
-                                                    <th>Ações</th>
-                                                    <th>Sub-total</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $total = 0;
-                                                foreach ($produtos as $p) {
+                                        <div id="divProdutos" style="margin-top: 10px;">
+                                            <table class="table table-bordered" id="tblProdutos">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Produto</th>
+                                                        <th>Quantidade</th>
+                                                        <th>Ações</th>
+                                                        <th>Sub-total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $total = 0;
+                                                    foreach ($produtos as $p) {
 
-                                                    $total = $total + $p->subTotal;
-                                                    echo '<tr>';
-                                                    echo '<td>'.$p->descricao.'</td>';
-                                                    echo '<td>'.$p->quantidade.'</td>';
-                                                    echo '<td><a href="" idAcao="'.$p->idItens.'" prodAcao="'.$p->idProdutos.'" quantAcao="'.$p->quantidade.'" title="Excluir Produto" class="btn btn-danger"><i class="icon-remove icon-white"></i></a></td>';
-                                                    echo '<td>R$ '.number_format($p->subTotal,2,',','.').'</td>';
-                                                    echo '</tr>';
-                                                }?>
+                                                        $total = $total + $p->subTotal;
+                                                        echo '<tr>';
+                                                        echo '<td>'.$p->descricao.'</td>';
+                                                        echo '<td>'.$p->quantidade.'</td>';
+                                                        echo '<td><a href="" idAcao="'.$p->idItens.'" prodAcao="'.$p->idProdutos.'" quantAcao="'.$p->quantidade.'" title="Excluir Produto" class="btn btn-danger"><i class="icon-remove icon-white"></i></a></td>';
+                                                        echo '<td>R$ '.number_format($p->subTotal,2,',','.').'</td>';
+                                                        echo '</tr>';
+                                                    }?>
 
-                                                <tr>
-                                                    <td colspan="3" style="text-align: right"><strong>Total:</strong></td>
-                                                    <td><strong>R$ <?php echo number_format($total,2,',','.');?></strong> <input type="hidden" id="total-venda" value="<?php echo number_format($total,2); ?>"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-
-
-
-
+                                                    <tr>
+                                                        <td colspan="3" style="text-align: right"><strong>Total:</strong></td>
+                                                        <td><strong>R$ <?php echo number_format($total,2,',','.');?></strong> <input type="hidden" id="total-venda" value="<?php echo number_format($total,2); ?>"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
 
                             </div>
@@ -239,13 +237,10 @@ $(document).ready(function(){
             source: "<?php echo base_url(); ?>index.php/produtos/autoCompleteProduto",
             minLength: 2,
             select: function( event, ui ) {
-
                  $("#idProduto").val(ui.item.id);
                  $("#estoque").val(ui.item.estoque);
-                 $("#preco").val(ui.item.preco);
-                 $("#quantidade").focus();
-
-
+                 $("#preco").val(ui.item.precoVenda);
+                 $("#preco").focus();
             }
       });
 
@@ -318,6 +313,7 @@ $(document).ready(function(){
                   {
                     if(data.result == true){
                         $("#divProdutos" ).load("<?php echo current_url();?> #divProdutos" );
+                        $("#preco").val('');
                         $("#quantidade").val('');
                         $("#produto").val('').focus();
                     }

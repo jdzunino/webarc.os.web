@@ -71,7 +71,7 @@
 
 
                         <?php if($produtos != null){?>
-
+                        <h5>Produtos</h5>
                         <table class="table table-bordered table-condensed" id="tblProdutos">
                                     <thead>
                                         <tr>
