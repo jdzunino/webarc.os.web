@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var urlHost = window.document.referrer.substring(0, window.document.referrer.indexOf("index.php"));
+    var urlHost = window.document.referrer.substring(0, window.document.referrer.indexOf("/index.php"));
 
      $('#recebido').click(function(event) {
         var flag = $(this).is(':checked');
