@@ -1,5 +1,8 @@
 <link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery-ui/css/smoothness/jquery-ui-1.9.2.custom.css" />
 <script type="text/javascript" src="<?php echo base_url()?>assets/js/jquery-ui/js/jquery-ui-1.9.2.custom.js"></script>
+<script src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
+<script src="<?php echo base_url();?>assets/js/maskmoney.js"></script>
+<script type="text/javascript" src="<?php echo base_url()?>application/views/financeiro/lancamentoControle.js"></script>
 
 <?php $situacao = $this->input->get('situacao');
 	  $periodo = $this->input->get('periodo');
@@ -197,7 +200,8 @@ if(!$results){?>
     	<div class="span12" style="margin-left: 0">
     		<div class="span12" style="margin-left: 0">
     			<label for="cliente">Cliente*</label>
-    			<input class="span12" id="cliente" type="text" name="cliente"  />
+					<input id="cliente" class="span12" type="text" name="cliente" value=""  />
+					<input id="cliente_id" class="span12" type="hidden" name="cliente_id" value=""  />
     		</div>
 
 
@@ -248,8 +252,6 @@ if(!$results){?>
 </div>
 
 
-
-
 <!-- Modal nova despesa -->
 <div id="modalDespesa" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <form id="formDespesa" action="<?php echo base_url() ?>index.php/financeiro/adicionarDespesa" method="post">
@@ -267,7 +269,8 @@ if(!$results){?>
     	<div class="span12" style="margin-left: 0">
     		<div class="span12" style="margin-left: 0">
     			<label for="fornecedor">Fornecedor / Empresa*</label>
-    			<input class="span12" id="fornecedor" type="text" name="fornecedor"  />
+					<input id="fornecedor" class="span12" type="text" name="fornecedor" value=""  />
+					<input id="fornecedor_id" class="span12" type="hidden" name="fornecedor_id" value=""  />
     		</div>
 
 
@@ -317,7 +320,6 @@ if(!$results){?>
   </div>
   </form>
 </div>
-
 
 
 <!-- Modal editar lançamento -->
@@ -397,10 +399,6 @@ if(!$results){?>
 </div>
 
 
-
-
-
-
 <!-- Modal Excluir lançamento-->
 <div id="modalExcluir" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
@@ -416,140 +414,3 @@ if(!$results){?>
     <button class="btn btn-danger" id="btnExcluir">Excluir Lançamento</button>
   </div>
 </div>
-
-
-
-
-
-<script src="<?php echo base_url()?>assets/js/jquery.validate.js"></script>
-<script src="<?php echo base_url();?>assets/js/maskmoney.js"></script>
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-
-		$(".money").maskMoney();
-
-		$('#pago').click(function(event) {
-			var flag = $(this).is(':checked');
-			if(flag == true){
-				$('#divPagamento').show();
-			}
-			else{
-				$('#divPagamento').hide();
-			}
-		});
-
-
-		$('#recebido').click(function(event) {
-			var flag = $(this).is(':checked');
-			if(flag == true){
-				$('#divRecebimento').show();
-			}
-			else{
-				$('#divRecebimento').hide();
-			}
-		});
-
-    $('#pagoEditar').click(function(event) {
-      var flag = $(this).is(':checked');
-      if(flag == true){
-        $('#divPagamentoEditar').show();
-      }
-      else{
-        $('#divPagamentoEditar').hide();
-      }
-    });
-
-
-		$("#formReceita").validate({
-          rules:{
-             descricao: {required:true},
-             cliente: {required:true},
-             valor: {required:true},
-             vencimento: {required:true}
-
-          },
-          messages:{
-             descricao: {required: 'Campo Requerido.'},
-             cliente: {required: 'Campo Requerido.'},
-             valor: {required: 'Campo Requerido.'},
-             vencimento: {required: 'Campo Requerido.'}
-          }
-    });
-
-
-
-		$("#formDespesa").validate({
-          rules:{
-             descricao: {required:true},
-             fornecedor: {required:true},
-             valor: {required:true},
-             vencimento: {required:true}
-
-          },
-          messages:{
-             descricao: {required: 'Campo Requerido.'},
-             fornecedor: {required: 'Campo Requerido.'},
-             valor: {required: 'Campo Requerido.'},
-             vencimento: {required: 'Campo Requerido.'}
-          }
-       	});
-
-
-    $(document).on('click', '.excluir', function(event) {
-      $("#idExcluir").val($(this).attr('idLancamento'));
-    });
-
-
-    $(document).on('click', '.editar', function(event) {
-      $("#idEditar").val($(this).attr('idLancamento'));
-      $("#descricaoEditar").val($(this).attr('descricao'));
-      $("#fornecedorEditar").val($(this).attr('cliente'));
-      $("#valorEditar").val($(this).attr('valor'));
-      $("#vencimentoEditar").val($(this).attr('vencimento'));
-      $("#pagamentoEditar").val($(this).attr('pagamento'));
-      $("#formaPgtoEditar").val($(this).attr('formaPgto'));
-      $("#tipoEditar").val($(this).attr('tipo'));
-      $("#urlAtualEditar").val($(location).attr('href'));
-      var baixado = $(this).attr('baixado');
-      if(baixado == 1){
-        $("#pagoEditar").attr('checked', true);
-        $("#divPagamentoEditar").show();
-      }
-      else{
-        $("#pagoEditar").attr('checked', false);
-        $("#divPagamentoEditar").hide();
-      }
-
-
-    });
-
-    $(document).on('click', '#btnExcluir', function(event) {
-        var id = $("#idExcluir").val();
-
-        $.ajax({
-          type: "POST",
-          url: "<?php echo base_url();?>index.php/financeiro/excluirLancamento",
-          data: "id="+id,
-          dataType: 'json',
-          success: function(data)
-          {
-            if(data.result == true){
-                $("#btnCancelExcluir").trigger('click');
-                $("#divLancamentos").html('<div class="progress progress-striped active"><div class="bar" style="width: 100%;"></div></div>');
-                $("#divLancamentos").load( $(location).attr('href')+" #divLancamentos" );
-
-            }
-            else{
-                $("#btnCancelExcluir").trigger('click');
-                alert('Ocorreu um erro ao tentar excluir produto.');
-            }
-          }
-        });
-        return false;
-    });
-
-    $(".datepicker" ).datepicker({ dateFormat: 'dd/mm/yy' });
-
-	});
-
-</script>

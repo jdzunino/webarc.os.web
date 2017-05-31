@@ -265,7 +265,8 @@ class Pessoas extends CI_Controller {
 
         if (isset($_GET['term'])){
             $q = strtolower($_GET['term']);
-            $this->pessoas_model->autoCompletePessoa($q);
+            $tipoPessoa = null;
+            $this->pessoas_model->autoCompletePessoa($q, $tipoPessoa);
         }
 
     }

@@ -13,7 +13,13 @@
 	</target>
 
 	<target name="deploy" depends="createDeployDir">
-		<copydir src="${srcDir}" dest="${deployDir}"></copydir>
+		<copydir src="${srcDir}" dest="${deployDir}">
+		</copydir>
+	</target>
+
+	<target name="deployViews">
+		<copydir src="${srcDir}/views" dest="${deployDir}/views">
+		</copydir>
 	</target>
 
 </project>
