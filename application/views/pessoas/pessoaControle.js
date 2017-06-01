@@ -1,53 +1,59 @@
-$(document).ready(function(){
+$(document).ready(function() {
+
+  var urlHost = window.document.referrer.substring(0, window.document.referrer.indexOf("/index.php"));
 
   $("#cidade").autocomplete({
-    source: window.document.referrer+"/../cidades/autoCompleteCidade",
+    source: urlHost + "/index.php/cidades/autoCompleteCidade",
     minLength: 1,
-    select: function( event, ui ) {
+    select: function(event, ui) {
       $("#cidade_id").val(ui.item.id);
     }
   });
 
-  $("#cep").focusout(function(){
+  $("#cep").focusout(function() {
     //Verifica se o CEP foi informado para não chamar o serviço sem CEP informado
-    if(!$("#cep").val()){
+    if (!$("#cep").val()) {
       return;
     }
-    var url = "https://viacep.com.br/ws/"+$("#cep").val()+"/json/";
+    var url = "https://viacep.com.br/ws/" + $("#cep").val() + "/json/";
     $.ajax({
       type: "GET",
       url: url,
       dataType: 'text',
-      success: function (responseData) {
+      success: function(responseData) {
         var json = JSON.parse(responseData);
-        $("#rua").val(json.logradouro);
-        $("#bairro").val(json.bairro);
-
         $("#cidade").val(json.localidade);
+        $("#bairro").val(json.bairro);
+        $("#rua").val(json.logradouro);
 
+        if (!json.localidade) {
+          $("#cidade").focus();
+        } else if (!json.bairro) {
+          $("#bairro").focus();
+        } else if (!json.rua) {
+          $("#rua").focus();
+        }
         //Busca cidade_id, busca pelo código ibge da cidade
         var codigoIbge6Digitos = parseInt(json.ibge / 10);
-        $("#cidade").focus();
-
-        var url_atual = window.document.referrer;
-        url = url_atual + "/../cidades/getByCodigoIbge?codigoIbge="+codigoIbge6Digitos;
+        url = urlHost + "/index.php/cidades/getByCodigoIbge?codigoIbge=" + codigoIbge6Digitos;
         $.ajax({
           type: "GET",
           url: url,
           dataType: 'text',
-          success: function (responseData) {
+          success: function(responseData) {
             var json = JSON.parse(responseData);
+            if (json.idCidade) {
+              $("#cidade_id").val(json.idCidade);
+            } else {}
 
-            $("#cidade_id").val(json.idCidade);
-            $("#numero").focus();
           },
-          error: function (request, status, error) {
+          error: function(request, status, error) {
             console.log(request.responseText);
 
           }
         });
       },
-      error: function (request, status, error) {
+      error: function(request, status, error) {
         console.log(request.responseText);
 
       }
@@ -55,35 +61,71 @@ $(document).ready(function(){
   });
 
   $('#formCliente').validate({
-    rules :{
-      nomeCliente:{ required: true},
-      documento:{ required: true},
-      telefone:{ required: true},
-      celular:{},
-      email:{ required: true},
-      rua:{ required: true},
-      numero:{ required: true},
-      bairro:{ required: true},
-      cidade_id:{ required: true},
-      cep:{ required: true}
+    rules: {
+      nomeCliente: {
+        required: true
+      },
+      documento: {
+        required: true
+      },
+      telefone: {
+        required: true
+      },
+      celular: {},
+      email: {
+        required: true
+      },
+      rua: {
+        required: true
+      },
+      numero: {
+        required: true
+      },
+      bairro: {
+        required: true
+      },
+      cidade_id: {
+        required: true
+      },
+      cep: {
+        required: true
+      }
     },
-    messages:{
-      nomeCliente :{ required: 'Campo Requerido.'},
-      documento :{ required: 'Campo Requerido.'},
-      telefone:{ required: 'Campo Requerido.'},
-      celular:{},
-      email:{ required: 'Campo Requerido.'},
-      rua:{ required: 'Campo Requerido.'},
-      numero:{ required: 'Campo Requerido.'},
-      bairro:{ required: 'Campo Requerido.'},
-      cidade_id:{ required: 'Campo Requerido.'},
-      cep:{ required: 'Campo Requerido.'}
+    messages: {
+      nomeCliente: {
+        required: 'Campo Requerido.'
+      },
+      documento: {
+        required: 'Campo Requerido.'
+      },
+      telefone: {
+        required: 'Campo Requerido.'
+      },
+      celular: {},
+      email: {
+        required: 'Campo Requerido.'
+      },
+      rua: {
+        required: 'Campo Requerido.'
+      },
+      numero: {
+        required: 'Campo Requerido.'
+      },
+      bairro: {
+        required: 'Campo Requerido.'
+      },
+      cidade_id: {
+        required: 'Campo Requerido.'
+      },
+      cep: {
+        required: 'Campo Requerido.'
+      }
 
     },
 
     errorClass: "help-inline",
     errorElement: "span",
-    highlight:function(element, errorClass, validClass) {
+    highlight: function(element, errorClass, validClass) {
       $(element).parents('.control-group').addClass('error');
     },
     unhighlight: function(element, errorClass, validClass) {
