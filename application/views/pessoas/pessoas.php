@@ -68,7 +68,19 @@ if(!$results){?>
             echo '<td>'.$r->nomeCliente.'</td>';
             echo '<td>'.$r->documento.'</td>';
             echo '<td>'.$r->telefone.'</td>';
-			      echo '<td>'.$r->tipoPessoa.'</td>';
+
+            switch ($r->tipoPessoa) {
+                case '1':
+                    $tipoPessoaDesc = 'Cliente';
+                    break;
+                case '2':
+                    $tipoPessoaDesc = 'Fornecedor';
+                    break;
+                case '3':
+                    $tipoPessoaDesc = 'Cliente/Fornecedor';
+                    break;
+            }
+            echo '<td>'. $tipoPessoaDesc .'</td>';
             echo '<td>';
             if($this->permission->checkPermission($this->session->userdata('permissao'),'vCliente')){
                 echo '<a href="'.base_url().'index.php/pessoas/visualizar/'.$r->idClientes.'" style="margin-right: 1%" class="btn tip-top" title="Ver mais detalhes"><i class="icon-eye-open"></i></a>';

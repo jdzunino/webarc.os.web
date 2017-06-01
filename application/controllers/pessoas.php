@@ -52,7 +52,7 @@ class Pessoas extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-	       $this->data['results'] = $this->pessoas_model->get('clientes','idClientes,nomeCliente,documento,telefone,tipoPessoa,celular,email,rua,numero,bairro,cidade_id,cep','',$config['per_page'],$this->uri->segment(3));
+	       $this->data['results'] = $this->pessoas_model->get('clientes','idClientes,nomeCliente,documento,telefone, tipoPessoa,celular,email,rua,numero,bairro,cidade_id,cep','',$config['per_page'],$this->uri->segment(3));
 
        	$this->data['view'] = 'pessoas/pessoas';
        	$this->load->view('tema/topo',$this->data);
