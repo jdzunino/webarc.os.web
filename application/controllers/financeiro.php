@@ -12,7 +12,7 @@ class Financeiro extends CI_Controller {
         $this->data['menuFinanceiro'] = 'financeiro';
         $this->load->helper(array('codegen_helper'));
 	}
-	
+
 	public function index(){
 		$this->lancamentos();
 	}
@@ -236,6 +236,7 @@ class Financeiro extends CI_Controller {
 								'data_vencimento' => $vencimento,
 								'data_pagamento' => $recebimento != null ? $recebimento : date('Y-m-d'),
 								'baixado' => $this->input->post('recebido'),
+								'clientes_id' => $this->input->post('cliente_id'),
 								'cliente_fornecedor' => set_value('cliente'),
 								'forma_pgto' => $this->input->post('formaPgto'),
 								'tipo' => set_value('tipo')
@@ -296,6 +297,7 @@ class Financeiro extends CI_Controller {
 								'data_vencimento' => $vencimento,
 								'data_pagamento' => $pagamento != null ? $pagamento : date('Y-m-d'),
 								'baixado' => $this->input->post('pago'),
+								'clientes_id' => $this->input->post('fornecedor_id'),
 								'cliente_fornecedor' => set_value('fornecedor'),
 								'forma_pgto' => $this->input->post('formaPgto'),
 								'tipo' => set_value('tipo')

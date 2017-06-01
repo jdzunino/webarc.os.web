@@ -74,11 +74,13 @@ class Pessoas_model extends CI_Model {
 
     public function autoCompletePessoa($q, $tipoPessoa = null){
         $this->db->select('*');
-        if($tipoPessoa){
-          $this->db->where('tipoPessoa',$tipoPessoa);
-        }
         $this->db->limit(10);
         $this->db->like('nomeCliente', $q);
+        if($tipoPessoa){
+            //Se vai filtrar por "1-cliente" ou "2-forncedor" deve considerar quem é "3-cliente e fornecedor" tbm.
+          $tipoPessoaClienteFornecedor = 3;
+          $this->db->where("( tipoPessoa = $tipoPessoa or tipoPessoa = $tipoPessoaClienteFornecedor )");
+        }
         $query = $this->db->get('clientes');
         if($query->num_rows > 0){
             foreach ($query->result_array() as $row){
