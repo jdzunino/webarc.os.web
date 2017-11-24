@@ -1,0 +1,36 @@
+ALTER TABLE `cadfnc`
+	CHANGE COLUMN `nomfnc` `nome` VARCHAR(80) NULL DEFAULT NULL,
+	CHANGE COLUMN `TELFNC` `telefone` VARCHAR(20) NULL DEFAULT NULL,
+	CHANGE COLUMN `CELFNC` `celular` VARCHAR(20) NULL DEFAULT NULL,
+	CHANGE COLUMN `CPFFNC` `cpf` VARCHAR(60) NULL DEFAULT NULL,
+	CHANGE COLUMN `ENDFNC` `rua` VARCHAR(255) NULL DEFAULT NULL,
+	CHANGE COLUMN `EMAFNC` `email` VARCHAR(255) NULL DEFAULT NULL;
+
+ALTER TABLE `cadfnc` CHANGE COLUMN `CODFNC` `idUsuarios` INT(11) NOT NULL FIRST;
+
+RENAME TABLE `usuarios` TO `usuaios_antiga`;
+RENAME TABLE `cadfnc` TO `usuarios`;
+
+ALTER TABLE `usuarios` ADD COLUMN `senha` VARCHAR(45);
+update usuarios set senha = '7c4a8d09ca3762af61e59520943dc26494f8941b';
+
+ALTER TABLE `usuarios` ADD COLUMN `situacao` INT(1);
+update usuarios set situacao = 1;
+
+ALTER TABLE `usuarios` ADD COLUMN `permissoes_id` INT(11) ;
+update usuarios set permissoes_id = 4;
+
+ALTER TABLE `usuarios` ADD COLUMN `senha` VARCHAR(45);
+
+ALTER TABLE `usuarios` ADD COLUMN `rg` VARCHAR(20) NULL DEFAULT NULL,
+ALTER TABLE `usuarios` ADD COLUMN `numero` VARCHAR(15) NULL DEFAULT NULL,
+ALTER TABLE `usuarios` ADD COLUMN `bairro` VARCHAR(45) NULL DEFAULT NULL,
+ALTER TABLE `usuarios` ADD COLUMN `cidade` VARCHAR(45) NULL DEFAULT NULL,
+ALTER TABLE `usuarios` ADD COLUMN `estado` VARCHAR(20) NULL DEFAULT NULL,
+
+	`senha` VARCHAR(45) NOT NULL,
+	`telefone` VARCHAR(20) NOT NULL,
+	`celular` VARCHAR(20) NULL DEFAULT NULL,
+	`situacao` TINYINT(1) NOT NULL,
+	`dataCadastro` DATE NOT NULL,
+	`permissoes_id` INT(11) NOT NULL,
