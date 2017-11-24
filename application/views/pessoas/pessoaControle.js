@@ -30,8 +30,10 @@ $(document).ready(function() {
           $("#cidade").focus();
         } else if (!json.bairro) {
           $("#bairro").focus();
-        } else if (!json.rua) {
+        } else if (!json.logradouro) {
           $("#rua").focus();
+        } else{
+          $("#numero").focus();
         }
         //Busca cidade_id, busca pelo código ibge da cidade
         var codigoIbge6Digitos = parseInt(json.ibge / 10);

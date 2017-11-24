@@ -110,13 +110,12 @@ $(document).ready(function(){
 
        });
 
-       $("#formFaturar").validate({
+       $("#formParcelas").validate({
             rules:{
                descricao: {required:true},
                fornecedor: {required:true},
                valor: {required:true},
                vencimento: {required:true}
-
             },
             messages:{
                descricao: {required: 'Campo Requerido.'},

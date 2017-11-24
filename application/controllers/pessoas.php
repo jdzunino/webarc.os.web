@@ -84,7 +84,8 @@ class Pessoas extends CI_Controller {
                 'bairro' => set_value('bairro'),
                 'cidade_id' =>  set_value('cidade_id'),
                 'cep' => set_value('cep'),
-                'dataCadastro' => date('Y-m-d')
+                'dataCadastro' => date('Y-m-d'),
+                'STACLF' => 'A'
             );
 
             if ($this->pessoas_model->add('clientes', $data) == TRUE) {
@@ -166,7 +167,9 @@ class Pessoas extends CI_Controller {
 
         $this->data['custom_error'] = '';
         $this->data['result'] = $this->pessoas_model->getById($this->uri->segment(3));
-        $cidade = $this->cidades_model->getById($this->data['result']->cidade_id);
+
+        //TODO Cidade fixa
+        $cidade = $this->cidades_model->getById(1);
         $estado = $this->estados_model->getById($cidade->estado_id);
         $this->data['result']->cidade = $estado->sigla.' | '.$cidade->nome;
 

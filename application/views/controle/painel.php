@@ -26,12 +26,6 @@
             <li class="bg_ls"> <a href="<?php echo base_url()?>index.php/vendas"><i class="icon-shopping-cart"></i> Vendas</a></li>
         <?php } ?>
 
-
-
-
-
-
-
       </ul>
     </div>
   </div>
@@ -42,7 +36,7 @@
 <div class="row-fluid" style="margin-top: 0">
 
     <div class="span12">
-
+        <!--- START - Produtos Com Estoque Mínimo --->
         <div class="widget-box">
             <div class="widget-title"><span class="icon"><i class="icon-signal"></i></span><h5>Produtos Com Estoque Mínimo</h5></div>
             <div class="widget-content">
@@ -84,6 +78,7 @@
                 </table>
             </div>
         </div>
+        <!--- END - Produtos Com Estoque Mínimo --->
     </div>
 
     <div class="span12" style="margin-left: 0">
@@ -217,11 +212,25 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <ul class="site-stats">
-                            <li class="bg_lh"><i class="icon-group"></i> <strong><?php echo $this->db->count_all('clientes');?></strong> <small>Pessoas</small></li>
+                            <li class="bg_lh"><i class="icon-group"></i> <strong>
+                              <?php
+                              $query = $this->db->query("select count(*) as qtd from clientes where tipoPessoa in (1,3) ");
+                              $res = $query->result_array();
+                        			$res = current($res);
+                              echo $res["qtd"];
+                              ?>
+                            </strong> <small>Clientes</small></li>
+                            <li class="bg_lh"><i class="icon-group"></i> <strong>
+                              <?php
+                              $query = $this->db->query("select count(*) as qtd from clientes where tipoPessoa in (2,3)");
+                              $res = $query->result_array();
+                        			$res = current($res);
+                              echo $res["qtd"];
+                              ?>
+                            </strong> <small>Fornecedores</small></li>
                             <li class="bg_lh"><i class="icon-barcode"></i> <strong><?php echo $this->db->count_all('produtos');?></strong> <small>Produtos </small></li>
                             <li class="bg_lh"><i class="icon-tags"></i> <strong><?php echo $this->db->count_all('os');?></strong> <small>Ordens de Serviço</small></li>
                             <li class="bg_lh"><i class="icon-wrench"></i> <strong><?php echo $this->db->count_all('servicos');?></strong> <small>Serviços</small></li>
-
                         </ul>
 
                     </div>

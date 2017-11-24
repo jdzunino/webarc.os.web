@@ -170,42 +170,105 @@
 
     </div>
     <div class="span12" style="margin-left: 0">
-      <div class="span4" style="margin-left: 0">
-        <label for="valor">Valor*</label>
+      <div class="span2" style="margin-left: 0">
+        <label for="valor">Valor Total*</label>
         <input type="hidden" id="tipo" name="tipo" value="despesa" />
         <input class="span12 money" id="valor" type="text" name="valor" value="<?php echo number_format($total,2); ?> "  />
       </div>
-      <div class="span4" >
-        <label for="vencimento">Data Vencimento*</label>
-        <input class="span12 datepicker" id="vencimento" type="text" name="vencimento"  />
-      </div>
 
     </div>
 
-    <div class="span12" style="margin-left: 0">
-      <div class="span4" style="margin-left: 0">
-        <label for="recebido">Recebido?</label>
-        &nbsp &nbsp &nbsp &nbsp<input  id="recebido" type="checkbox" name="recebido" value="1" />
-      </div>
-      <div id="divRecebimento" class="span8" style=" display: none">
-        <div class="span6">
-          <label for="recebimento">Data Recebimento</label>
-          <input class="span12 datepicker" id="recebimento" type="text" name="recebimento" />
-        </div>
-        <div class="span6">
-          <label for="formaPgto">Forma Pgto</label>
-          <select name="formaPgto" id="formaPgto" class="span12">
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Cartão de Crédito">Cartão de Crédito</option>
-            <option value="Cheque">Cheque</option>
-            <option value="Boleto">Boleto</option>
-            <option value="Depósito">Depósito</option>
-            <option value="Débito">Débito</option>
-          </select>
-        </div>
-      </div>
 
-    </div>
+
+    <div class="span11 well" style="align: center">
+            <h3>Parcelas</h3>
+            <form title="Teste" id="formParcelas" action="<?php echo base_url(); ?>index.php/compras/faturar" method="post">
+              <div class="span3" >
+                <label for="vencimento">Vencimento*</label>
+                <input class="span12 datepicker" id="vencimento" type="text" name="vencimento"  />
+              </div>
+              <div class="span2" style="margin-left: 0">
+                <label for="valor">Valor*</label>
+                <input type="hidden" id="tipo" name="tipo" value="despesa" />
+                <input class="span12 money" id="valor" type="text" name="valor" value="<?php echo number_format($total,2); ?> "  />
+              </div>
+              <div class="span2" style="margin-left: 0">
+                <label for="recebido">Quitado?</label>
+                &nbsp &nbsp &nbsp &nbsp<input  id="recebido" type="checkbox" name="recebido" value="1" />
+              </div>
+              <div id="divRecebimento" class="span8" style=" display: none">
+                <div class="span6">
+                  <label for="recebimento">Data Pagamento</label>
+                  <input class="span12 datepicker" id="recebimento" type="text" name="recebimento" />
+                </div>
+                <div class="span6">
+                  <label for="formaPgto">Forma Pgto</label>
+                  <select name="formaPgto" id="formaPgto" class="span12">
+                    <option value="Dinheiro">Dinheiro</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cheque">Cheque</option>
+                    <option value="Boleto">Boleto</option>
+                    <option value="Depósito">Depósito</option>
+                    <option value="Débito">Débito</option>
+                  </select>
+                </div>
+              </div>
+                <div class="span4">
+                    <label for="">&nbsp</label>
+                    <button class="btn btn-success span11" id="btnAdicionarParcela"><i class="icon-white icon-plus"></i> Adicionar</button>
+                </div>
+            </form>
+
+            <div id="divParcelas" style="margin-top: 10px;">
+
+                <table class="table table-bordered" id="tblParcelas">
+                    <thead>
+                        <tr>
+                            <th>Parcela</th>
+                            <th>Vencimento</th>
+                            <th>Valor</th>
+                            <th>Quitado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $total = 0;
+                        $count = 1;
+                        foreach ($parcelas as $p) {
+                            $total = $total + $p->subTotal;
+                            echo '<tr>';
+                            echo '<td>'.$count.'</td>';
+                            echo '<td>'.$p->vencimento.'</td>';
+                            echo '<td>'.number_format($p->valor,2,',','.').'</td>';
+
+                            switch ($r->baixado) {
+                                case 0:
+                                    $quitadoDesc = 'Não';
+                                    break;
+                                case 1:
+                                    $quitadoDesc = 'Sim';
+                                    break;
+                            }
+
+                            echo '<td>'.$quitadoDesc.'</td>';
+                            echo '</tr>';
+                        }?>
+
+                        <tr>
+                            <td colspan="3" style="text-align: right"><strong>Total Parcelas:</strong></td>
+                            <td><strong>R$ <?php echo number_format($total,2,',','.');?></strong> <input type="hidden" id="total-venda" value="<?php echo number_format($total,2); ?>"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+
+
+
+
 
 
 </div>
