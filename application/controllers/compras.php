@@ -11,7 +11,8 @@ class Compras extends CI_Controller {
 
 		$this->load->helper(array('form','codegen_helper'));
 		$this->load->model('compras_model','',TRUE);
-    $this->load->model('cidades_model','',TRUE);
+		$this->load->model('financeiro_model','',TRUE);
+        $this->load->model('cidades_model','',TRUE);
 		$this->data['menuCompras'] = 'Compras';
 	}
 
@@ -53,9 +54,9 @@ class Compras extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-		$this->data['results'] = $this->compras_model->get('compras','*','',$config['per_page'],$this->uri->segment(3));
+		    $this->data['results'] = $this->compras_model->get('compras','*','',$config['per_page'],$this->uri->segment(3));
 
-	    $this->data['view'] = 'compras/compras';
+	      $this->data['view'] = 'compras/compras';
        	$this->load->view('tema/topo',$this->data);
     }
 
@@ -151,12 +152,13 @@ class Compras extends CI_Controller {
             }
         }
 
-        $this->data['result'] = $this->compras_model->getById($this->uri->segment(3));
+        $compraId = $this->uri->segment(3);
+        $this->data['result'] = $this->compras_model->getById($compraId);
+        $this->data['lancamentos'] = $this->financeiro_model->getLancamentosByCompraId($compraId);
         $this->data['cidade'] = $this->cidades_model->getById($this->data['result']->cidade_id);
         $this->data['produtos'] = $this->compras_model->getProdutos($this->uri->segment(3));
         $this->data['view'] = 'compras/editarCompra';
         $this->load->view('tema/topo', $this->data);
-
     }
 
     public function visualizar(){
@@ -175,7 +177,6 @@ class Compras extends CI_Controller {
         $this->load->model('controle_model');
         $this->data['result'] = $this->compras_model->getById($this->uri->segment(3));
         $this->data['cidade'] = $this->cidades_model->getById($this->data['result']->cidade_id);
-        echo json_encode($this->data['result']);
         $this->data['produtos'] = $this->compras_model->getProdutos($this->uri->segment(3));
         $this->data['emitente'] = $this->controle_model->getEmitente();
 
@@ -288,9 +289,12 @@ class Compras extends CI_Controller {
         $this->load->library('form_validation');
         $this->data['custom_error'] = '';
 
+        $compra = $this->input->post('compras_id');
 
         if ($this->form_validation->run('despesa') == false) {
             $this->data['custom_error'] = (validation_errors() ? '<div class="form_error">' . validation_errors() . '</div>' : false);
+            echo json_encode($this->data['custom_error']);
+            die();
         } else {
             $vencimento = $this->input->post('vencimento');
             $recebido = $this->input->post('recebido');
@@ -311,6 +315,7 @@ class Compras extends CI_Controller {
                 'descricao' => set_value('descricao'),
                 'valor' => $this->input->post('valor'),
                 'clientes_id' => $this->input->post('fornecedor_id'),
+                'compra_id' => $compra,
                 'data_vencimento' => $vencimento,
                 'data_pagamento' => $recebimento,
                 'baixado' => $recebido,
@@ -319,9 +324,7 @@ class Compras extends CI_Controller {
                 'tipo' => $this->input->post('tipo')
             );
 
-            if ($this->compras_model->add('lancamentos',$data) == TRUE) {
-
-                $compra = $this->input->post('compras_id');
+            if ($this->financeiro_model->add('lancamentos',$data) == TRUE) {
 
                 $this->db->set('faturado',1);
                 $this->db->set('valorTotal',$this->input->post('valor'));

@@ -156,7 +156,7 @@ class Servicos extends CI_Controller {
 
         if (isset($_GET['term'])){
             $q = strtolower($_GET['term']);
-            $this->os_model->autoCompleteServico($q);
+            $this->servicos_model->autoCompleteServico($q);
         }
 
     }

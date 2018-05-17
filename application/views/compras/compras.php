@@ -68,7 +68,7 @@ if(!$results){?>
             echo '<tr>';
             echo '<td>'.$r->idCompras.'</td>';
             echo '<td>'.$dataCompra.'</td>';
-            echo '<td><a href="'.base_url().'index.php/clientes/visualizar/'.$r->idClientes.'">'.$r->nomeCliente.'</a></td>';
+            echo '<td><a href="'.base_url().'index.php/pessoas/visualizar/'.$r->idClientes.'">'.$r->nomeCliente.'</a></td>';
             echo '<td>'.$faturado.'</td>';
 
             echo '<td>';

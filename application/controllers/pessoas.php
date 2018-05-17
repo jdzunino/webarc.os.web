@@ -169,14 +169,13 @@ class Pessoas extends CI_Controller {
         $this->data['result'] = $this->pessoas_model->getById($this->uri->segment(3));
 
         //TODO Cidade fixa
-        $cidade = $this->cidades_model->getById(1);
+        $cidade = $this->cidades_model->getById($this->data['result']->cidade_id);
         $estado = $this->estados_model->getById($cidade->estado_id);
         $this->data['result']->cidade = $estado->sigla.' | '.$cidade->nome;
 
         $this->data['results'] = $this->pessoas_model->getOsByCliente($this->uri->segment(3));
         $this->data['view'] = 'pessoas/visualizar';
         $this->load->view('tema/topo', $this->data);
-
 
     }
 
