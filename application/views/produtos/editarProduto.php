@@ -46,14 +46,21 @@
                     <div class="control-group">
                         <label for="estoque" class="control-label">Estoque<span class="required">*</span></label>
                         <div class="controls">
-                            <input id="estoque" type="text" name="estoque" value="<?php echo $result->estoque; ?>"  />
+                            <input id="estoque" type="number" step="1" ui-mask="[0-9]+" name="estoque" value="<?php echo $result->estoque; ?>"  />
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label for="estoqueMinimo" class="control-label">Estoque Mínimo</label>
                         <div class="controls">
-                            <input id="estoqueMinimo" type="text" name="estoqueMinimo" value="<?php echo $result->estoqueMinimo; ?>"  />
+                            <input id="estoqueMinimo" type="number" step="1" ui-mask="[0-9]+"  name="estoqueMinimo" value="<?php echo $result->estoqueMinimo; ?>"  />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="codigoGtin" class="control-label">Código Gtin</label>
+                        <div class="controls">
+                            <input id="codigoGtin" type="number" step="1" ui-mask="[0-9]+" name="codigoGtin" value="<?php echo $result->codigoGtin; ?>"  />
                         </div>
                     </div>
 

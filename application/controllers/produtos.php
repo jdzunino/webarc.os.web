@@ -52,7 +52,7 @@ class Produtos extends CI_Controller {
 
         $this->pagination->initialize($config);
 
-	    $this->data['results'] = $this->produtos_model->get('produtos','idProdutos,descricao,unidade,precoCompra,precoVenda,estoque,estoqueMinimo','',$config['per_page'],$this->uri->segment(3));
+	    $this->data['results'] = $this->produtos_model->get('produtos','idProdutos,descricao,unidade,precoCompra,precoVenda,estoque,estoqueMinimo,codigoGtin','',$config['per_page'],$this->uri->segment(3));
 
 	    $this->data['view'] = 'produtos/produtos';
        	$this->load->view('tema/topo',$this->data);
@@ -77,13 +77,15 @@ class Produtos extends CI_Controller {
             $precoCompra = str_replace(",","", $precoCompra);
             $precoVenda = $this->input->post('precoVenda');
             $precoVenda = str_replace(",", "", $precoVenda);
+
             $data = array(
                 'descricao' => set_value('descricao'),
                 'unidade' => set_value('unidade'),
                 'precoCompra' => $precoCompra,
                 'precoVenda' => $precoVenda,
                 'estoque' => set_value('estoque'),
-                'estoqueMinimo' => set_value('estoqueMinimo')
+                'estoqueMinimo' => set_value('estoqueMinimo'),
+                'codigoGtin' => set_value('codigoGtin')
             );
 
             if ($this->produtos_model->add('produtos', $data) == TRUE) {
@@ -125,7 +127,8 @@ class Produtos extends CI_Controller {
                 'precoCompra' => $precoCompra,
                 'precoVenda' => $precoVenda,
                 'estoque' => $this->input->post('estoque'),
-                'estoqueMinimo' => $this->input->post('estoqueMinimo')
+                'estoqueMinimo' => $this->input->post('estoqueMinimo'),
+                'codigoGtin' => $this->input->post('codigoGtin')
             );
 
             if ($this->produtos_model->edit('produtos', $data, 'idProdutos', $this->input->post('idProdutos')) == TRUE) {
