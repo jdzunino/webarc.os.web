@@ -89,7 +89,12 @@ $config = array('clientes' => array(array(
                                 array(
                                     'field'=>'estoqueMinimo',
                                     'label'=>'Estoque Mnimo',
-                                    'rules'=>'trim|xss_clean'
+                                    'rules'=>'required|trim|xss_clean'
+                                ),
+                                array(
+                                    'field'=>'codigoGtin',
+                                    'label'=>'Código Gtin',
+                                    'rules'=>'required|trim|xss_clean'
                                 ))
                 ,
                 'usuarios' => array(array(

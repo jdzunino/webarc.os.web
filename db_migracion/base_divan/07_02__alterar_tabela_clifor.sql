@@ -13,8 +13,9 @@ ALTER TABLE `clifor` ADD COLUMN `tipoPessoa` INT(2) NULL DEFAULT NULL;
 ALTER TABLE `clifor` ADD COLUMN `celular` VARCHAR(20) NULL DEFAULT NULL;
 ALTER TABLE `clifor` ADD COLUMN `cidade_id` INT(11) NULL DEFAULT NULL;
 
-update clientes set tipoPessoa = 1 where tipclf = 'F'
-update clientes set tipoPessoa = 2 where tipclf = 'J'
+update clifor set tipoPessoa = 1 where tipclf = 'F'
+update clifor set tipoPessoa = 2 where tipclf = 'J'
+update clifor set cidade_id = (select idCidade from cidades where nome = clientes.MUNCLF)
 
 RENAME TABLE `clientes` TO `clientes_antiga`;
 RENAME TABLE `clifor` TO `clientes`;
