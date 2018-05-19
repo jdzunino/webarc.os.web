@@ -31,7 +31,7 @@
                     <div class="control-group">
                         <label for="precoCompra" class="control-label">Preço de Compra<span class="required">*</span></label>
                         <div class="controls">
-                            <input id="precoCompra" class="money" type="text" name="precoCompra" value="<?php echo set_value('precoCompra'); ?>"  />
+                            <input id="precoCompra" class="money" type="text" name="precoCompra" value="<?php echo set_value('precoCompra'); ?>" />
                         </div>
                     </div>
 
@@ -45,14 +45,21 @@
                     <div class="control-group">
                         <label for="estoque" class="control-label">Estoque<span class="required">*</span></label>
                         <div class="controls">
-                            <input id="estoque" type="text" name="estoque" value="<?php echo set_value('estoque'); ?>"  />
+                            <input id="estoque" type="number" step="1" name="estoque" value="<?php echo set_value('estoque') == null ? 0 : set_value('estoque'); ?>"  />
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label for="estoqueMinimo" class="control-label">Estoque Mínimo</label>
                         <div class="controls">
-                            <input id="estoqueMinimo" type="text" name="estoqueMinimo" value="<?php echo set_value('estoqueMinimo'); ?>"  />
+                            <input id="estoqueMinimo" type="number" step="1" name="estoqueMinimo" value="<?php echo set_value('estoqueMinimo') == null ? 0 : set_value('estoqueMinimo'); ?>"  />
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="codigoGtin" class="control-label">Código Gtin</label>
+                        <div class="controls">
+                            <input id="codigoGtin" type="number" step="1" name="codigoGtin" value="<?php echo set_value('codigoGtin') == null ? 0 : set_value('codigoGtin'); ?>"  />
                         </div>
                     </div>
 

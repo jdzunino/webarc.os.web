@@ -35,7 +35,10 @@
                             <td style="text-align: right"><strong>Estoque Mínimo</strong></td>
                             <td><?php echo $result->estoqueMinimo; ?></td>
                         </tr>
-
+                        <tr>
+                            <td style="text-align: right"><strong>Código Gtin</strong></td>
+                            <td><?php echo $result->codigoGtin; ?></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
